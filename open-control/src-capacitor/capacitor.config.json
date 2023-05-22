@@ -1,0 +1,7 @@
+{
+  "appId": "com.goldenbrains.opencontrol",
+  "appName": "Open Control",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
