@@ -120,7 +120,7 @@
       </div>
     </q-card>
 
-    <DarkenScreen :show="isExpanded" @click="isExpanded = false" />
+    <DarkenScreen :show="isExpanded" @click="isExpandedInter = false" />
   </div>
 </template>
 
@@ -142,7 +142,7 @@ watch(
       if (isExpanded.value) {
         isExpandedInter.value = true;
       }
-    }, 200);
+    }, 0);
   }
 );
 
