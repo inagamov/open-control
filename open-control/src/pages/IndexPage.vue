@@ -4,6 +4,7 @@
     <CompanySelector />
 
     <!-- Services -->
+    <ServicesMenu />
 
     <!-- Notifications -->
   </q-page>
@@ -11,4 +12,5 @@
 
 <script setup>
 import CompanySelector from 'components/CompanySelector.vue';
+import ServicesMenu from 'components/ServicesMenu.vue';
 </script>

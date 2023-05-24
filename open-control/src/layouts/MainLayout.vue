@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lhr Lpr fFf">
-    <q-footer bordered class="row justify-around q-pt-sm q-pb-md">
+    <q-footer bordered class="row justify-around q-pt-sm q-pb-lg">
       <!-- Home -->
       <q-btn flat no-caps to="/home">
         <template #default>

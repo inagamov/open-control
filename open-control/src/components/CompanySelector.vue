@@ -1,12 +1,17 @@
 <template>
   <div>
+    <div v-if="isExpanded" style="width: 100%; height: 80px"></div>
+
     <q-card
       flat
       :class="`company_selector ${
         isExpanded ? 'company_selector__expanded' : ''
       }`"
     >
-      <q-card-section class="row no-wrap" @click="isExpanded = !isExpanded">
+      <q-card-section
+        class="row no-wrap"
+        @click="!isExpanded ? (isExpanded = true) : (isExpandedInter = false)"
+      >
         <!-- Company logo -->
         <q-img
           v-if="state.activeCompany.value"
@@ -79,38 +84,40 @@
         </q-btn>
       </q-card-section>
 
-      <q-slide-transition>
-        <q-card-section v-if="isExpanded" class="q-pt-none">
-          <q-separator />
+      <div :style="isExpanded ? '' : ''">
+        <q-slide-transition appear>
+          <div v-if="isExpandedInter" class="q-px-md">
+            <q-separator />
 
-          <!-- Companies -->
-          <template v-if="state.companies.value.length">
-            <q-intersection
-              v-for="company in state.companies.value"
-              :key="company.id"
-              transition="scale"
-            >
-              <q-card>
-                <q-card-section>
-                  {{ company.name }}
-                </q-card-section>
-              </q-card>
-            </q-intersection>
-          </template>
+            <!-- Companies -->
+            <template v-if="state.companies.value.length">
+              <q-intersection
+                v-for="company in state.companies.value"
+                :key="company.id"
+                transition="scale"
+              >
+                <q-card>
+                  <q-card-section>
+                    {{ company.name }}
+                  </q-card-section>
+                </q-card>
+              </q-intersection>
+            </template>
 
-          <div v-else class="text-grey text-center q-mt-md">Нет компаний</div>
+            <div v-else class="text-grey text-center q-mt-md">Нет компаний</div>
 
-          <div class="row justify-center q-mt-md">
-            <q-btn
-              color="accent"
-              round
-              unelevated
-              icon="add"
-              style="width: 44px; height: 44px"
-            />
+            <div class="row justify-center q-my-md">
+              <q-btn
+                color="accent"
+                round
+                unelevated
+                icon="add"
+                style="width: 44px; height: 44px"
+              />
+            </div>
           </div>
-        </q-card-section>
-      </q-slide-transition>
+        </q-slide-transition>
+      </div>
     </q-card>
 
     <DarkenScreen :show="isExpanded" @click="isExpanded = false" />
@@ -120,12 +127,35 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useCompaniesStore } from 'stores/store-companies';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import DarkenScreen from 'components/DarkenScreen.vue';
 
 const state = storeToRefs(useCompaniesStore());
 
 const isExpanded = ref(false);
+const isExpandedInter = ref(false);
+
+watch(
+  () => isExpanded.value,
+  () => {
+    setTimeout(() => {
+      if (isExpanded.value) {
+        isExpandedInter.value = true;
+      }
+    }, 200);
+  }
+);
+
+watch(
+  () => isExpandedInter.value,
+  () => {
+    setTimeout(() => {
+      if (!isExpandedInter.value) {
+        isExpanded.value = false;
+      }
+    }, 400);
+  }
+);
 </script>
 
 <style scoped lang="scss">
@@ -134,6 +164,7 @@ const isExpanded = ref(false);
   border-radius: 20px;
   z-index: 2001;
   transition: 0.5s;
+  position: relative;
 }
 
 .company_selector__expanded {
@@ -141,7 +172,9 @@ const isExpanded = ref(false);
   z-index: 2002;
   transition: 0.5s;
   transform: scale(1.05);
-  margin-top: 4px;
+  position: absolute;
+  top: 60px;
+  width: calc(100% - 48px);
 }
 
 .company_selector__expand_btn,
