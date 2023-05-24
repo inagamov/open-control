@@ -143,7 +143,7 @@ watch(
       if (isExpanded.value) {
         isExpandedInter.value = true;
       }
-    }, 200);
+    }, 100);
   }
 );
 
@@ -154,7 +154,7 @@ watch(
       if (!isExpandedInter.value) {
         isExpanded.value = false;
       }
-    }, 400);
+    }, 350);
   }
 );
 </script>
@@ -174,7 +174,7 @@ watch(
   transition: 0.5s;
   transform: scale(1.05);
   position: absolute;
-  top: 24px;
+  top: 14px;
   width: calc(100% - 48px);
   box-shadow: rgba(0, 0, 0, 0.2) 0 20px 30px !important;
 }
