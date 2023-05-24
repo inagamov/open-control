@@ -10,8 +10,9 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
+const env = require('dotenv').config().parsed;
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -52,6 +53,10 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16',
+      },
+
+      env: {
+        mediaURL: env.DEV_URL,
       },
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
