@@ -64,6 +64,7 @@
               width="28"
               height="28"
               viewBox="0 0 28 28"
+              style="transition: 0.275s"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -142,7 +143,7 @@ watch(
       if (isExpanded.value) {
         isExpandedInter.value = true;
       }
-    }, 0);
+    }, 200);
   }
 );
 
@@ -173,8 +174,9 @@ watch(
   transition: 0.5s;
   transform: scale(1.05);
   position: absolute;
-  top: 60px;
+  top: 24px;
   width: calc(100% - 48px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 20px 30px !important;
 }
 
 .company_selector__expand_btn,

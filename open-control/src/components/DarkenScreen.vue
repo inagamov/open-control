@@ -22,17 +22,17 @@ defineProps({
   top: 0;
   left: 0;
   z-index: 2000;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
 }
 
 @keyframes appear {
   from {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(0);
   }
   to {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(4px);
   }
 }
