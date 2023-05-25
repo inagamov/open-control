@@ -3,7 +3,7 @@
     <q-intersection transition="scale" once>
       <div class="row justify-around q-pt-sm q-pb-lg">
         <!-- Home -->
-        <q-btn flat no-caps to="/home">
+        <q-btn flat no-caps :to="state.navItems.value.home.to">
           <template #default>
             <div class="column">
               <svg
@@ -15,7 +15,8 @@
               >
                 <path
                   :fill="
-                    router.currentRoute._value.path === ROUTE_PATHS.HOME
+                    router.currentRoute._value.path ===
+                    state.navItems.value.home.to
                       ? 'var(--q-accent)'
                       : 'var(--q-secondary)'
                   "
@@ -26,19 +27,20 @@
               </svg>
               <span
                 :class="
-                  router.currentRoute._value.path === ROUTE_PATHS.HOME
+                  router.currentRoute._value.path ===
+                  state.navItems.value.home.to
                     ? 'text-accent'
                     : 'text-secondary'
                 "
               >
-                Главная
+                {{ state.navItems.value.home.label }}
               </span>
             </div>
           </template>
         </q-btn>
 
         <!-- Chats -->
-        <q-btn flat no-caps to="/chats">
+        <q-btn flat no-caps :to="state.navItems.value.chats.to">
           <template #default>
             <div class="column">
               <svg
@@ -53,7 +55,8 @@
                   clip-rule="evenodd"
                   d="M29.1668 41.6673C29.1668 39.3662 31.0323 37.5007 33.3335 37.5007H33.3752C35.6763 37.5007 37.5418 39.3662 37.5418 41.6673C37.5418 43.9686 35.6763 45.834 33.3752 45.834H33.3335C31.0323 45.834 29.1668 43.9686 29.1668 41.6673ZM45.8335 41.6673C45.8335 39.3662 47.6989 37.5007 50.0002 37.5007H50.0418C52.3431 37.5007 54.2085 39.3662 54.2085 41.6673C54.2085 43.9686 52.3431 45.834 50.0418 45.834H50.0002C47.6989 45.834 45.8335 43.9686 45.8335 41.6673ZM66.6668 37.5007C64.3656 37.5007 62.5002 39.3662 62.5002 41.6673C62.5002 43.9686 64.3656 45.834 66.6668 45.834H66.7085C69.0098 45.834 70.8752 43.9686 70.8752 41.6673C70.8752 39.3662 69.0098 37.5007 66.7085 37.5007H66.6668ZM28.8925 8.33399C28.9837 8.33399 29.0751 8.33399 29.1668 8.33399H71.1077C74.8014 8.33379 77.9839 8.33362 80.5327 8.67629C83.2639 9.04349 85.8822 9.87158 88.0056 11.9952C90.1293 14.1188 90.9573 16.7369 91.3248 19.4682C91.6673 22.0168 91.6673 25.1994 91.6668 28.8932V54.4415C91.6673 58.1352 91.6673 61.3177 91.3248 63.8665C90.9573 66.5977 90.1293 69.2161 88.0056 71.3394C85.8822 73.4632 83.2639 74.2911 80.5327 74.6586C77.9839 75.0011 74.8014 75.0011 71.1077 75.0007H58.3335C57.8602 75.0007 57.3989 75.1507 57.016 75.429L38.6488 88.7869C34.7026 91.6569 29.1668 88.8382 29.1668 83.9586V75.0007C25.942 75.0007 22.6718 75.0894 19.4677 74.6586C16.7364 74.2911 14.1183 73.4632 11.9947 71.3394C9.87109 69.2161 9.04301 66.5977 8.6758 63.8665C8.33313 61.3177 8.3333 58.1352 8.33351 54.4415V29.1673C8.33351 29.0756 8.33351 28.9842 8.33351 28.893C8.3333 25.1994 8.33313 22.0168 8.6758 19.4682C9.04301 16.7369 9.87109 14.1188 11.9947 11.9952C14.1183 9.87158 16.7364 9.04349 19.4677 8.67629C22.0163 8.33362 25.1989 8.33379 28.8925 8.33399Z"
                   :fill="
-                    router.currentRoute._value.path === ROUTE_PATHS.CHATS
+                    router.currentRoute._value.path ===
+                    state.navItems.value.chats.to
                       ? 'var(--q-accent)'
                       : 'var(--q-secondary)'
                   "
@@ -62,12 +65,13 @@
 
               <span
                 :class="
-                  router.currentRoute._value.path === ROUTE_PATHS.CHATS
+                  router.currentRoute._value.path ===
+                  state.navItems.value.chats.to
                     ? 'text-accent'
                     : 'text-secondary'
                 "
               >
-                Чаты
+                {{ state.navItems.value.chats.label }}
               </span>
             </div>
           </template>
@@ -114,7 +118,7 @@
         </q-btn>
 
         <!-- Check ups -->
-        <q-btn flat no-caps to="/check-ups">
+        <q-btn flat no-caps :to="state.navItems.value.checkups.to">
           <template #default>
             <div class="column">
               <svg
@@ -129,7 +133,8 @@
                   clip-rule="evenodd"
                   d="M20.8335 12.5007V18.1135C18.1291 18.9187 15.735 20.1698 13.7855 22.1193C11.4255 24.4793 10.089 27.4908 9.32791 30.9156C8.57733 34.2931 8.3335 38.3155 8.3335 42.9673V65.3673C8.3335 70.019 8.57733 74.0415 9.32791 77.419C10.089 80.844 11.4255 83.8552 13.7855 86.2152C16.1455 88.5752 19.157 89.9119 22.5818 90.6727C25.9592 91.4236 29.9817 91.6673 34.6335 91.6673H65.3668C70.0185 91.6673 74.041 91.4236 77.4185 90.6727C80.8435 89.9119 83.8547 88.5752 86.2147 86.2152C88.5747 83.8552 89.9114 80.844 90.6722 77.419C91.4231 74.0415 91.6668 70.019 91.6668 65.3673V42.9673C91.6668 38.3155 91.4231 34.2931 90.6722 30.9156C89.9114 27.4908 88.5747 24.4793 86.2147 22.1193C84.2652 20.1698 81.8714 18.9187 79.1668 18.1135V12.5007C79.1668 10.1995 77.3014 8.33398 75.0002 8.33398C72.6989 8.33398 70.8335 10.1995 70.8335 12.5007V16.8122C69.1206 16.7093 67.2981 16.6673 65.3668 16.6673H34.6335C32.7025 16.6673 30.8799 16.7093 29.1668 16.8122V12.5007C29.1668 10.1995 27.3013 8.33398 25.0002 8.33398C22.699 8.33398 20.8335 10.1995 20.8335 12.5007ZM25.0002 37.5007C25.0002 35.1995 26.8657 33.334 29.1668 33.334H70.8335C73.1347 33.334 75.0002 35.1995 75.0002 37.5007C75.0002 39.8018 73.1347 41.6673 70.8335 41.6673H29.1668C26.8657 41.6673 25.0002 39.8018 25.0002 37.5007Z"
                   :fill="
-                    router.currentRoute._value.path === ROUTE_PATHS.CHECKUPS
+                    router.currentRoute._value.path ===
+                    state.navItems.value.checkups.to
                       ? 'var(--q-accent)'
                       : 'var(--q-secondary)'
                   "
@@ -138,19 +143,20 @@
 
               <span
                 :class="
-                  router.currentRoute._value.path === ROUTE_PATHS.CHECKUPS
+                  router.currentRoute._value.path ===
+                  state.navItems.value.checkups.to
                     ? 'text-accent'
                     : 'text-secondary'
                 "
               >
-                Встречи
+                {{ state.navItems.value.checkups.label }}
               </span>
             </div>
           </template>
         </q-btn>
 
         <!-- Profile -->
-        <q-btn flat no-caps to="/profile">
+        <q-btn flat no-caps :to="state.navItems.value.profile.to">
           <template #default>
             <div class="column">
               <svg
@@ -165,7 +171,8 @@
                   clip-rule="evenodd"
                   d="M25 33.334C25 19.5269 36.1929 8.33398 50 8.33398C63.8071 8.33398 75 19.5269 75 33.334C75 47.1411 63.8071 58.334 50 58.334C36.1929 58.334 25 47.1411 25 33.334Z"
                   :fill="
-                    router.currentRoute._value.path === ROUTE_PATHS.PROFILE
+                    router.currentRoute._value.path ===
+                    state.navItems.value.profile.to
                       ? 'var(--q-accent)'
                       : 'var(--q-secondary)'
                   "
@@ -175,7 +182,8 @@
                   clip-rule="evenodd"
                   d="M22.6289 70.4284C29.3994 67.5901 38.4304 66.668 50 66.668C61.5458 66.668 70.5629 67.5863 77.3275 70.4101C84.5883 73.4409 89.045 78.5901 91.4208 86.0792C92.3033 88.8626 90.2158 91.668 87.33 91.668H12.6441C9.77007 91.668 7.69494 88.875 8.5704 86.1071C10.939 78.6184 15.3799 73.4671 22.6289 70.4284Z"
                   :fill="
-                    router.currentRoute._value.path === ROUTE_PATHS.PROFILE
+                    router.currentRoute._value.path ===
+                    state.navItems.value.profile.to
                       ? 'var(--q-accent)'
                       : 'var(--q-secondary)'
                   "
@@ -184,12 +192,13 @@
 
               <span
                 :class="
-                  router.currentRoute._value.path === ROUTE_PATHS.PROFILE
+                  router.currentRoute._value.path ===
+                  state.navItems.value.profile.to
                     ? 'text-accent'
                     : 'text-secondary'
                 "
               >
-                Я
+                {{ state.navItems.value.profile.label }}
               </span>
             </div>
           </template>
@@ -202,7 +211,11 @@
 <script setup>
 import { ROUTE_PATHS } from 'src/constants/paths';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useIndexStore } from 'stores/store-index';
 const router = useRouter();
+
+const state = storeToRefs(useIndexStore());
 </script>
 
 <style scoped lang="scss">

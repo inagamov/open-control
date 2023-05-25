@@ -7,7 +7,7 @@
       </div>
     </page-body>
 
-    <page-footer />
+    <page-navbar />
   </page>
 </template>
 
