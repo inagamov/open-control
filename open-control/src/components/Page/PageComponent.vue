@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-top fit bg-white">
+  <div v-touch-swipe.right="useGoBack()" class="absolute-top fit bg-white">
     <div
       class="page-nudger fit"
       :class="hasActiveChildPage ? 'nudge-left' : ''"
@@ -30,6 +30,7 @@
 import { onActivated, onDeactivated, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useIndexStore } from 'stores/store-index';
+import useGoBack from 'src/helpers/useGoBack';
 
 const hasActiveChildPage = ref(false);
 const emit = defineEmits(['activated', 'deactivated']);

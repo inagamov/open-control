@@ -5,8 +5,12 @@ import { ROUTE_PATHS } from 'src/constants/paths';
 
 const state = storeToRefs(useIndexStore());
 
+let routerInstance = null;
+
 export default boot(({ router }) => {
   router.beforeEach((to, from, next) => {
+    routerInstance = router;
+
     const fromRootPath = '/' + from.path.split('/')[1];
     const toRootPath = '/' + to.path.split('/')[1];
 
@@ -30,3 +34,5 @@ export default boot(({ router }) => {
     next();
   });
 });
+
+export { routerInstance };
