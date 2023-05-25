@@ -143,7 +143,7 @@ watch(
       if (isExpanded.value) {
         isExpandedInter.value = true;
       }
-    }, 100);
+    }, 0);
   }
 );
 
