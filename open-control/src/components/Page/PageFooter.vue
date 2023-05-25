@@ -66,8 +66,9 @@
                     ? 'text-accent'
                     : 'text-secondary'
                 "
-                >Чаты</span
               >
+                Чаты
+              </span>
             </div>
           </template>
         </q-btn>
@@ -141,8 +142,9 @@
                     ? 'text-accent'
                     : 'text-secondary'
                 "
-                >Проверки</span
               >
+                Встречи
+              </span>
             </div>
           </template>
         </q-btn>
@@ -186,8 +188,9 @@
                     ? 'text-accent'
                     : 'text-secondary'
                 "
-                >Профиль</span
               >
+                Я
+              </span>
             </div>
           </template>
         </q-btn>
