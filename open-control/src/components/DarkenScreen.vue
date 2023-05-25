@@ -21,7 +21,7 @@ defineProps({
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 2000;
+  z-index: 2001;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
 }
