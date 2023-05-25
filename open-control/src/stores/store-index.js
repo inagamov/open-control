@@ -18,5 +18,6 @@ export const useIndexStore = defineStore('index', {
       },
     },
     usePageTransition: false,
+    allowPageBackTransitionOnIOS: false,
   }),
 });

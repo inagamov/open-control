@@ -5,7 +5,10 @@
       no-caps
       color="accent"
       class="absolute-left q-pl-sm"
-      @click="router.back()"
+      @click="
+        state.allowPageBackTransitionOnIOS.value = true;
+        router.back();
+      "
     >
       <template #default>
         <q-icon name="arrow_back_ios_new" />
@@ -28,7 +31,10 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useIndexStore } from 'stores/store-index';
 
+const state = storeToRefs(useIndexStore());
 const router = useRouter();
 </script>
 

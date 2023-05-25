@@ -1,8 +1,14 @@
 <template>
-  <div v-touch-swipe.right="useGoBack()" class="absolute-top fit bg-white">
+  <div class="absolute-top fit bg-white">
     <div
+      v-touch-swipe.right="$q.platform.is.ios ?? useGoBack()"
       class="page-nudger fit"
-      :class="hasActiveChildPage ? 'nudge-left' : ''"
+      :class="
+        hasActiveChildPage &&
+        (!$q.platform.is.ios || ($q.platform.is.ios && !hasActiveChildPage))
+          ? 'nudge-left'
+          : ''
+      "
     >
       <slot />
     </div>
@@ -12,7 +18,12 @@
         appear
         enter-active-class="animated slideInRight"
         leave-active-class="animated slideOutRight"
-        :css="state.usePageTransition.value"
+        :css="
+          state.usePageTransition.value &&
+          (!$q.platform.is.ios ||
+            ($q.platform.is.ios && !hasActiveChildPage) ||
+            ($q.platform.is.ios && state.allowPageBackTransitionOnIOS.value))
+        "
       >
         <keep-alive>
           <component
@@ -30,11 +41,13 @@
 import { onActivated, onDeactivated, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useIndexStore } from 'stores/store-index';
+import { useQuasar } from 'quasar';
 import useGoBack from 'src/helpers/useGoBack';
 
 const hasActiveChildPage = ref(false);
 const emit = defineEmits(['activated', 'deactivated']);
 const state = storeToRefs(useIndexStore());
+const $q = useQuasar();
 
 onActivated(() => {
   emit('activated');
@@ -42,5 +55,6 @@ onActivated(() => {
 
 onDeactivated(() => {
   emit('deactivated');
+  state.allowPageBackTransitionOnIOS.value = false;
 });
 </script>
