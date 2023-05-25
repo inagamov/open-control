@@ -8,11 +8,11 @@
             class="row no-wrap justify-center relative-position q-py-sm blur"
           >
             <q-btn
-              :to="router.back()"
               flat
               no-caps
               color="accent"
               class="absolute-left q-pl-sm"
+              @click="router.back()"
             >
               <template #default>
                 <q-icon name="arrow_back_ios_new" />
