@@ -1,31 +1,14 @@
 <template>
   <page style="z-index: 3000">
     <page-body>
-      <div class="chat">
-        <div class="column no-wrap full-height">
-          <!-- Header -->
-          <div
-            class="row no-wrap justify-center relative-position q-py-sm blur"
-          >
-            <q-btn
-              flat
-              no-caps
-              color="accent"
-              class="absolute-left q-pl-sm"
-              @click="router.back()"
-            >
-              <template #default>
-                <q-icon name="arrow_back_ios_new" />
-                <div class="q-pl-sm">Назад</div>
-              </template>
-            </q-btn>
+      <ChatComponent>
+        <!-- Header -->
+        <template #header>
+          <ChatHeader>
+            <template #interlocutor> Помощник </template>
+            <template #status> active </template>
 
-            <div class="text-center column justify-center">
-              <div class="interlocutor_name">Помощник</div>
-              <div class="text-grey" style="line-height: 14px">online</div>
-            </div>
-
-            <div class="absolute-right q-pr-sm column justify-center">
+            <template #avatar>
               <svg
                 width="40px"
                 height="40px"
@@ -47,221 +30,46 @@
                   fill="var(--q-accent)"
                 />
               </svg>
-            </div>
-          </div>
+            </template>
+          </ChatHeader>
+        </template>
 
-          <q-separator />
+        <!-- Body -->
+        <template #body>
+          <ChatBody />
+        </template>
 
-          <!-- Body -->
-          <q-scroll-area style="height: 100%">
-            <q-card-section>
-              <q-chat-message :text="['hey, how are you?']" sent />
-              <q-chat-message :text="['doing fine, how r you?']" />
-            </q-card-section>
-          </q-scroll-area>
-
-          <q-separator />
-
-          <!-- Footer  -->
-          <div class="row no-wrap q-px-sm q-py-sm blur">
-            <q-btn flat color="secondary" round class="footer__button">
-              <template #default>
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="style=linear">
-                    <g id="attach">
-                      <path
-                        id="vector"
-                        d="M20.6475 10.6158L11.8855 19.3778C9.93289 21.3304 6.76706 21.3304 4.81444 19.3778C2.86182 17.4252 2.86182 14.2594 4.81444 12.3068L12.9462 4.17503C14.313 2.80819 16.5291 2.80819 17.8959 4.17503C19.2628 5.54186 19.2628 7.75794 17.8959 9.12478L10.1024 16.9183C9.32132 17.6994 8.05499 17.6994 7.27394 16.9183C6.4929 16.1373 6.49289 14.8709 7.27394 14.0899L14.468 6.89585"
-                        stroke="var(--q-secondary)"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                      />
-                    </g>
-                  </g>
-                </svg>
-              </template>
-            </q-btn>
-
-            <q-input
-              v-model="text"
-              dense
-              borderless
-              :placeholder="placeholder"
-              class="q-px-sm"
-              style="margin: auto 0; width: 100%"
-            />
-
-            <q-btn
-              :flat="!text?.length"
-              :unelevated="!!text?.length"
-              :color="!text?.length ? 'secondary' : 'accent'"
-              round
-              class="footer__button"
-            >
-              <template #default>
-                <transition appear enter-active-class="animated zoomIn">
-                  <svg
-                    v-if="!text?.length"
-                    width="28px"
-                    height="28px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      x="9"
-                      y="3"
-                      width="6"
-                      height="11"
-                      rx="3"
-                      fill-opacity="0.24"
-                      stroke="var(--q-secondary)"
-                      stroke-width="1.2"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M5.4 11C5.4 12.7504 6.09536 14.4292 7.3331 15.6669C8.57084 16.9046 10.2496 17.6 12 17.6C13.7504 17.6 15.4292 16.9046 16.6669 15.6669C17.9046 14.4292 18.6 12.7504 18.6 11"
-                      stroke="var(--q-secondary)"
-                      stroke-width="1.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M12 21V19"
-                      stroke="var(--q-secondary)"
-                      stroke-width="1.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </transition>
-
-                <transition appear enter-active-class="animated zoomIn">
-                  <q-icon v-if="!!text?.length" name="north" />
-                </transition>
-              </template>
-            </q-btn>
-          </div>
-        </div>
-      </div>
+        <!-- Footer -->
+        <template #footer>
+          <ChatFooter
+            :placeholders="[
+              'Как получить лицензию',
+              'Как связаться с поддержкой',
+              'Как изменить пароль',
+              'Как настроить профиль',
+              'Как добавить новый аккаунт',
+              'Как удалить данные',
+              'Как оплатить подписку',
+              'Как получить скидку',
+              'Как создать новый проект',
+              'Как добавить участника в проект',
+              'Как изменить настройки безопасности',
+              'Как настроить уведомления',
+              'Как использовать API',
+              'Как создать бэкап данных',
+              'Как восстановить данные из бэкапа',
+              'Как установить приложение',
+            ]"
+          ></ChatFooter>
+        </template>
+      </ChatComponent>
     </page-body>
   </page>
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const text = ref();
-const placeholder = ref('');
-
-const requestExamples = [
-  'Как получить лицензию',
-  'Как связаться с поддержкой',
-  'Как изменить пароль',
-  'Как настроить профиль',
-  'Как добавить новый аккаунт',
-  'Как удалить данные',
-  'Как оплатить подписку',
-  'Как получить скидку',
-  'Как создать новый проект',
-  'Как добавить участника в проект',
-  'Как изменить настройки безопасности',
-  'Как настроить уведомления',
-  'Как использовать API',
-  'Как создать бэкап данных',
-  'Как восстановить данные из бэкапа',
-  'Как установить приложение',
-];
-
-function animate() {
-  let sentenceIndex = 0;
-  let i = 0;
-  let isForward = true;
-
-  setInterval(() => {
-    const sentence = requestExamples[sentenceIndex];
-    if (isForward) {
-      placeholder.value = sentence.slice(0, i + 1);
-      i++;
-      if (i === sentence.length) {
-        setTimeout(() => {
-          isForward = false;
-        }, 2000); // Wait 2 seconds before deleting
-      }
-    } else {
-      placeholder.value = sentence.slice(0, i);
-      i--;
-      if (i === -1) {
-        isForward = true;
-        i++;
-        sentenceIndex = (sentenceIndex + 1) % requestExamples.length;
-      }
-    }
-  }, 100);
-}
-
-onBeforeMount(() => {
-  animate();
-});
+import ChatHeader from 'components/Chat/ChatHeader.vue';
+import ChatFooter from 'components/Chat/ChatFooter.vue';
+import ChatBody from 'components/Chat/ChatBody.vue';
+import ChatComponent from 'components/Chat/ChatComponent.vue';
 </script>
-
-<style scoped lang="scss">
-::v-deep(.q-field__control) {
-  border-radius: 20px;
-  height: 33px;
-  background: #f2f2f2;
-  padding: 0 12px !important;
-}
-
-.footer__button {
-  width: 33px;
-  min-width: 33px;
-  max-width: 33px;
-  height: 33px;
-  min-height: 33px;
-  max-height: 33px;
-}
-
-/*
- * chat
- */
-::v-deep(.q-message-text--received) {
-  background: $secondary;
-  color: $secondary;
-  border-radius: 15px 15px 15px 0;
-}
-
-::v-deep(.q-message-text--sent) {
-  background: $accent;
-  color: $accent;
-  border-radius: 15px 15px 0 15px;
-}
-</style>
-
-<style scoped>
-.chat {
-  width: 100vw;
-  height: 100vh;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-.blur {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(6px);
-}
-
-.interlocutor_name {
-  font-weight: 600;
-  font-size: 16px;
-}
-</style>
