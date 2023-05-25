@@ -8,7 +8,7 @@
             class="row no-wrap justify-center relative-position q-py-sm blur"
           >
             <q-btn
-              to="/"
+              :to="router.back()"
               flat
               no-caps
               color="accent"
@@ -156,9 +156,11 @@
 
 <script setup>
 import { onBeforeMount, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const text = ref();
-
 const placeholder = ref('');
 
 const requestExamples = [
