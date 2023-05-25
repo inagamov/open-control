@@ -75,7 +75,7 @@
                     : 'M23.6667 18.334L14.3333 9.00064L5 18.334'
                 "
                 style="transition: 0.275s"
-                stroke="#D03730"
+                stroke="var(--q-accent)"
                 stroke-width="3.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -174,7 +174,7 @@ watch(
   transition: 0.5s;
   transform: scale(1.05);
   position: absolute;
-  top: 14px;
+  top: calc(14px + env(safe-area-inset-top));
   width: calc(100% - 48px);
   box-shadow: rgba(0, 0, 0, 0.2) 0 20px 30px !important;
 }

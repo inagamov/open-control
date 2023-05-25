@@ -3,5 +3,6 @@ export const ROUTE_PATHS = {
   CHATS: '/chats',
   CHECKUPS: '/check-ups',
   PROFILE: '/profile',
+  CHAT_BOT: '/chat-bot',
   ERROR_PATH: '/:catchAll(.*)*',
 };

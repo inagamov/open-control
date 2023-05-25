@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-h4">Сервисы</div>
+    <div class="text-h4">Действия</div>
 
     <div class="row no-wrap q-gutter-md service_cards__wrapper">
       <q-intersection

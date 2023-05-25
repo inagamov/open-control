@@ -1,27 +1,34 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
-    <div>
-      <div style="font-size: 30vh">
-        404
-      </div>
+  <page>
+    <page-body>
+      <div class="text-accent text-center absolute-center">
+        <div>
+          <div style="font-size: 20vh">404</div>
+          <div style="opacity: 0.4; font-size: 3vh">Что-то пошло не так...</div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
+          <q-btn
+            class="q-mt-md q-px-xl q-py-md"
+            color="accent"
+            unelevated
+            :to="ROUTE_PATHS.HOME"
+            no-caps
+          >
+            <div style="font-size: 16px">На главную</div>
+          </q-btn>
+        </div>
       </div>
+    </page-body>
 
-      <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
-        unelevated
-        to="/"
-        label="Go Home"
-        no-caps
-      />
-    </div>
-  </div>
+    <page-footer />
+  </page>
 </template>
 
 <script setup lang="ts">
-
+import { ROUTE_PATHS } from 'src/constants/paths';
 </script>
+
+<style scoped>
+::v-deep(.q-btn) {
+  border-radius: 20px;
+}
+</style>

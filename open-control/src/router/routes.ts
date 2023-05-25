@@ -6,22 +6,28 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/IndexPage.vue') },
+      { path: '', redirect: ROUTE_PATHS.HOME },
       {
         path: ROUTE_PATHS.HOME,
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('pages/HomePage.vue'),
+        children: [
+          {
+            path: ROUTE_PATHS.CHAT_BOT,
+            component: () => import('pages/ChatBotPage.vue'),
+          },
+        ],
       },
       {
         path: ROUTE_PATHS.CHATS,
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('pages/HomePage.vue'),
       },
       {
         path: ROUTE_PATHS.CHECKUPS,
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('pages/HomePage.vue'),
       },
       {
         path: ROUTE_PATHS.PROFILE,
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('pages/HomePage.vue'),
       },
     ],
   },
