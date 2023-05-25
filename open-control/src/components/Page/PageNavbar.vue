@@ -1,7 +1,10 @@
 <template>
-  <q-footer bordered>
-    <q-intersection transition="scale" once>
-      <div class="row justify-around q-pt-sm q-pb-lg">
+  <q-footer
+    bordered
+    style="padding-bottom: calc(env(safe-area-inset-bottom) - 16px)"
+  >
+    <q-intersection transition="slide-up" once>
+      <div class="row justify-around q-pt-sm q-pb-md">
         <!-- Home -->
         <q-btn flat no-caps :to="state.navItems.value.home.to">
           <template #default>
