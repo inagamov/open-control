@@ -12,6 +12,7 @@
         appear
         enter-active-class="animated slideInRight"
         leave-active-class="animated slideOutRight"
+        :css="state.usePageTransition.value"
       >
         <keep-alive>
           <component
@@ -27,10 +28,12 @@
 
 <script setup>
 import { onActivated, onDeactivated, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useIndexStore } from 'stores/store-index';
 
 const hasActiveChildPage = ref(false);
-
 const emit = defineEmits(['activated', 'deactivated']);
+const state = storeToRefs(useIndexStore());
 
 onActivated(() => {
   emit('activated');
