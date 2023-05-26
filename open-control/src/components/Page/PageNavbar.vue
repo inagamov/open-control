@@ -6,7 +6,7 @@
     <q-intersection transition="slide-up" once>
       <div class="row justify-around q-pt-sm q-pb-md">
         <!-- Home -->
-        <q-btn flat no-caps :to="state.navItems.value.home.to" class="push_btn">
+        <q-btn flat no-caps :to="state.navItems.value.home.to" class="push-btn">
           <template #default>
             <div class="column">
               <svg
@@ -47,7 +47,7 @@
           flat
           no-caps
           :to="state.navItems.value.chats.to"
-          class="push_btn"
+          class="push-btn"
         >
           <template #default>
             <div class="column">
@@ -85,11 +85,11 @@
           </template>
         </q-btn>
 
-        <!-- SEARCH -->
+        <!-- CHAT BOT -->
         <q-btn
           round
           flat
-          class="search_btn push_btn"
+          class="search-btn push-btn"
           :to="ROUTE_PATHS.CHAT_BOT"
         >
           <template #default>
@@ -135,7 +135,7 @@
           flat
           no-caps
           :to="state.navItems.value.checkups.to"
-          class="push_btn"
+          class="push-btn"
         >
           <template #default>
             <div class="column">
@@ -178,7 +178,7 @@
           flat
           no-caps
           :to="state.navItems.value.profile.to"
-          class="push_btn"
+          class="push-btn"
         >
           <template #default>
             <div class="column">
@@ -247,12 +247,12 @@ const state = storeToRefs(useIndexStore());
   height: 60px;
 }
 
-.search_btn {
+.search-btn {
   width: 80px;
   height: 80px;
   margin-top: -40px;
 }
-.search_btn div {
+.search-btn div {
   width: 100%;
   height: 100%;
   border-radius: 100%;
@@ -260,10 +260,10 @@ const state = storeToRefs(useIndexStore());
   position: relative;
 }
 
-.push_btn {
+.push-btn {
   transition: 0.4s;
 }
-.push_btn:active {
+.push-btn:active {
   transform: scale(0.85);
 }
 </style>

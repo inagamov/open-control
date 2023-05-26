@@ -33,6 +33,11 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: ROUTE_PATHS.SIGN_IN,
+    component: () => import('pages/SignInPage.vue'),
+  },
+
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
