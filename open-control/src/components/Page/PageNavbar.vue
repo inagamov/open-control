@@ -6,7 +6,7 @@
     <q-intersection transition="slide-up" once>
       <div class="row justify-around q-pt-sm q-pb-md">
         <!-- Home -->
-        <q-btn flat no-caps :to="state.navItems.value.home.to">
+        <q-btn flat no-caps :to="state.navItems.value.home.to" class="push_btn">
           <template #default>
             <div class="column">
               <svg
@@ -43,7 +43,12 @@
         </q-btn>
 
         <!-- Chats -->
-        <q-btn flat no-caps :to="state.navItems.value.chats.to">
+        <q-btn
+          flat
+          no-caps
+          :to="state.navItems.value.chats.to"
+          class="push_btn"
+        >
           <template #default>
             <div class="column">
               <svg
@@ -81,7 +86,12 @@
         </q-btn>
 
         <!-- SEARCH -->
-        <q-btn round flat class="search_btn" :to="ROUTE_PATHS.CHAT_BOT">
+        <q-btn
+          round
+          flat
+          class="search_btn push_btn"
+          :to="ROUTE_PATHS.CHAT_BOT"
+        >
           <template #default>
             <div>
               <!-- * new -->
@@ -121,7 +131,12 @@
         </q-btn>
 
         <!-- Check ups -->
-        <q-btn flat no-caps :to="state.navItems.value.checkups.to">
+        <q-btn
+          flat
+          no-caps
+          :to="state.navItems.value.checkups.to"
+          class="push_btn"
+        >
           <template #default>
             <div class="column">
               <svg
@@ -159,7 +174,12 @@
         </q-btn>
 
         <!-- Profile -->
-        <q-btn flat no-caps :to="state.navItems.value.profile.to">
+        <q-btn
+          flat
+          no-caps
+          :to="state.navItems.value.profile.to"
+          class="push_btn"
+        >
           <template #default>
             <div class="column">
               <svg
@@ -231,10 +251,6 @@ const state = storeToRefs(useIndexStore());
   width: 80px;
   height: 80px;
   margin-top: -40px;
-  transition: 0.4s;
-}
-.search_btn:active {
-  transform: scale(0.9);
 }
 .search_btn div {
   width: 100%;
@@ -242,6 +258,13 @@ const state = storeToRefs(useIndexStore());
   border-radius: 100%;
   background: $tint;
   position: relative;
+}
+
+.push_btn {
+  transition: 0.4s;
+}
+.push_btn:active {
+  transform: scale(0.85);
 }
 </style>
 
