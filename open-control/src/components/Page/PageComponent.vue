@@ -4,9 +4,9 @@
       v-touch-swipe.right="$q.platform.is.ios ?? useGoBack()"
       class="page-nudger fit"
       :class="
-        hasActiveChildPage &&
-        (!$q.platform.is.ios || ($q.platform.is.ios && !hasActiveChildPage))
-          ? 'nudge-left'
+        hasActiveChildPage
+          ? // && (!$q.platform.is.ios || ($q.platform.is.ios && !hasActiveChildPage))
+            'nudge-left'
           : ''
       "
     >
