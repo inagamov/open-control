@@ -2,21 +2,25 @@ import { boot } from 'quasar/wrappers';
 import { storeToRefs } from 'pinia';
 import { useIndexStore } from 'stores/store-index';
 import { ROUTE_PATHS } from 'src/constants/paths';
+import { useAuthStore } from 'stores/store-auth';
 
 const state = storeToRefs(useIndexStore());
+
+const authState = storeToRefs(useAuthStore());
+const { auth } = useAuthStore();
 
 let routerInstance = null;
 
 export default boot(({ router }) => {
-  router.beforeEach((to, from, next) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+  auth();
 
-    if (!user && to.path !== ROUTE_PATHS.SIGN_IN) {
+  router.beforeEach((to, from, next) => {
+    if (!authState.isAuthed.value && to.path !== ROUTE_PATHS.SIGN_IN) {
       next(ROUTE_PATHS.SIGN_IN);
       return;
     }
 
-    if (user && to.path === ROUTE_PATHS.SIGN_IN) {
+    if (authState.isAuthed.value && to.path === ROUTE_PATHS.SIGN_IN) {
       next(ROUTE_PATHS.HOME);
       return;
     }

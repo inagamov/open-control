@@ -42,9 +42,9 @@
 
           <!-- Email -->
           <q-input
-            v-model="form.login"
+            v-model="form.email"
             outlined
-            label="Логин"
+            label="E-mail"
             type="email"
             color="accent"
             clearable
@@ -74,9 +74,9 @@
 
           <!-- Footer -->
           <q-btn
-            class="sign_in-btn q-mt-lg"
-            :disable="!form?.login || !form?.password"
-            :loading="state.loading?.value"
+            class="submit-btn push-btn q-mt-lg"
+            :disable="!form?.email || !form?.password"
+            :loading="authState.loading?.value"
             flat
             no-caps
             text-color="white"
@@ -113,16 +113,17 @@
             bordered
             v-ripple
             style="border-radius: 20px"
-            class="full-width q-hoverable q-mb-lg"
+            class="full-width q-hoverable push-btn q-mb-lg"
+            @click="submit()"
           >
             <q-card-section class="q-pa-sm row no-wrap">
-              <q-img
+              <img
                 src="https://free-png.ru/wp-content/uploads/2021/11/free-png.ru-497.png"
                 alt="Гос Услуги"
                 style="width: 44px"
               />
 
-              <div style="margin: auto 0; font-weight: 500" class="q-pl-sm">
+              <div style="margin: auto 0" class="q-pl-sm">
                 Войти через «Гос услуги»
               </div>
             </q-card-section>
@@ -135,7 +136,7 @@
 
 <script setup>
 import { onBeforeMount, ref } from 'vue';
-import { useAuthStore } from 'stores/store-user.js';
+import { useAuthStore } from 'stores/store-auth.js';
 import { storeToRefs } from 'pinia';
 import { ROUTE_PATHS } from 'src/constants/paths';
 import { useRouter } from 'vue-router';
@@ -143,7 +144,7 @@ import PageComponent from 'components/Page/PageComponent.vue';
 import PageBody from 'components/Page/PageBody.vue';
 const { login } = useAuthStore();
 
-const state = storeToRefs(useAuthStore());
+const authState = storeToRefs(useAuthStore());
 
 const router = useRouter();
 
@@ -151,13 +152,21 @@ const router = useRouter();
  * auth
  */
 const form = ref({
-  login: '',
+  email: '',
   password: '',
 });
 
-const submit = async () => {
-  await login(form.value.login, form.value.password);
-  router.push(ROUTE_PATHS.HOME);
+const submit = () => {
+  new Promise((resolve, reject) => {
+    const response = login(form.value.email, form.value.password);
+    resolve(response);
+  })
+    .then(() => {
+      router.push(ROUTE_PATHS.HOME);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 /*
@@ -169,8 +178,8 @@ const slides = {
 };
 const slidePrev = ref(slides.vasyly.value);
 const slide = ref(slides.vasyly.value);
-const sliderAnimationDuration = 7 * 1000;
-const sliderAnimationDelay = 300 * 2;
+const sliderAnimationDuration = 10 * 1000;
+const sliderAnimationDelay = 500 * 2;
 
 onBeforeMount(() => {
   setInterval(() => {
@@ -188,43 +197,3 @@ onBeforeMount(() => {
   }, sliderAnimationDuration);
 });
 </script>
-
-<style scoped lang="scss">
-::v-deep(.sign_in-btn) {
-  border-radius: 20px;
-  background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
-  animation: gradient 1s ease-in-out infinite alternate;
-  width: 100%;
-  height: 56px;
-  font-size: 18px;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-.bg-tint {
-  background: $tint;
-}
-
-::v-deep(.q-field__control) {
-  border-radius: 15px;
-}
-
-/* Add box-shadow to v-input on focus */
-::v-deep(.q-field--focused) {
-  box-shadow: 0px 0px 10px #fcb8ae;
-  transition: 0.4s;
-  border-radius: 15px;
-}
-
-::v-deep(.q-field__focusable-action) {
-  color: $accent;
-  opacity: 1;
-}
-</style>
