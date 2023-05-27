@@ -1,6 +1,6 @@
 <template>
-  <page>
-    <page-body>
+  <PageComponent>
+    <PageBody>
       <div class="full-height column justify-end bg-tint">
         <div
           class="row no-wrap justify-center full-width"
@@ -129,8 +129,8 @@
           </q-card>
         </form>
       </div>
-    </page-body>
-  </page>
+    </PageBody>
+  </PageComponent>
 </template>
 
 <script setup>
@@ -139,6 +139,8 @@ import { useAuthStore } from 'stores/store-user.js';
 import { storeToRefs } from 'pinia';
 import { ROUTE_PATHS } from 'src/constants/paths';
 import { useRouter } from 'vue-router';
+import PageComponent from 'components/Page/PageComponent.vue';
+import PageBody from 'components/Page/PageBody.vue';
 const { login } = useAuthStore();
 
 const state = storeToRefs(useAuthStore());

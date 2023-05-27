@@ -1,6 +1,6 @@
 <template>
-  <page style="z-index: 3000">
-    <page-body>
+  <PageComponent style="z-index: 3000">
+    <PageBody>
       <ChatComponent>
         <!-- Header -->
         <template #header>
@@ -63,8 +63,8 @@
           ></ChatFooter>
         </template>
       </ChatComponent>
-    </page-body>
-  </page>
+    </PageBody>
+  </PageComponent>
 </template>
 
 <script setup>
@@ -72,4 +72,6 @@ import ChatHeader from 'components/Chat/ChatHeader.vue';
 import ChatFooter from 'components/Chat/ChatFooter.vue';
 import ChatBody from 'components/Chat/ChatBody.vue';
 import ChatComponent from 'components/Chat/ChatComponent.vue';
+import PageComponent from 'components/Page/PageComponent.vue';
+import PageBody from 'components/Page/PageBody.vue';
 </script>

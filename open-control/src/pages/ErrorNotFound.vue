@@ -1,6 +1,6 @@
 <template>
-  <page>
-    <page-body>
+  <PageComponent>
+    <PageBody>
       <div class="text-accent text-center absolute-center">
         <div>
           <div style="font-size: 20vh">404</div>
@@ -17,14 +17,16 @@
           </q-btn>
         </div>
       </div>
-    </page-body>
+    </PageBody>
 
     <page-footer />
-  </page>
+  </PageComponent>
 </template>
 
 <script setup lang="ts">
 import { ROUTE_PATHS } from 'src/constants/paths';
+import PageBody from 'components/Page/PageBody.vue';
+import PageComponent from 'components/Page/PageComponent.vue';
 </script>
 
 <style scoped>
