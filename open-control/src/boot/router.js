@@ -16,6 +16,11 @@ export default boot(({ router }) => {
       return;
     }
 
+    if (user && to.path === ROUTE_PATHS.SIGN_IN) {
+      next(ROUTE_PATHS.HOME);
+      return;
+    }
+
     routerInstance = router;
 
     const fromRootPath = '/' + from.path.split('/')[1];
