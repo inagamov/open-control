@@ -9,12 +9,12 @@ let routerInstance = null;
 
 export default boot(({ router }) => {
   router.beforeEach((to, from, next) => {
-    // const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
-    // if (!user && to.path !== ROUTE_PATHS.SIGN_IN) {
-    //   next(ROUTE_PATHS.SIGN_IN);
-    //   return;
-    // }
+    if (!user && to.path !== ROUTE_PATHS.SIGN_IN) {
+      next(ROUTE_PATHS.SIGN_IN);
+      return;
+    }
 
     routerInstance = router;
 
