@@ -1,0 +1,32 @@
+export default [
+  {
+    id: 1,
+    name: 'Иванов Иван Иванович',
+    email: 'ivan.ivanov@yandex.ru',
+    phone: '+79990009900',
+    avatar: 'https://jooinn.com/images/businessman-portrait-1.jpg',
+    position: 'SEO',
+    roles: ['entrepreneur'],
+    companies: [],
+  },
+  {
+    id: 2,
+    name: 'Максимов Максим Максимович',
+    email: 'petr.petrov@yandex.ru',
+    phone: '+79990009900',
+    avatar: '',
+    position: '',
+    roles: ['entrepreneur'],
+    companies: [],
+  },
+  {
+    id: 3,
+    name: 'Иванова Дарья Сергеевна',
+    email: 'darya.ivanova@yandex.ru',
+    phone: '+79990009900',
+    avatar: '',
+    position: '',
+    roles: ['employee'],
+    companies: [],
+  },
+];
