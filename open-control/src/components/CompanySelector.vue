@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div v-if="isExpanded" style="width: 100%; height: 80px"></div>
-
     <q-card
       flat
       :class="`company_selector ${
-        isExpanded ? 'company_selector__expanded' : ''
+        isExpanded
+          ? 'company_selector__expanded'
+          : !companiesState.activeCompany.value
+          ? 'bg-grey-2 '
+          : 'bg-tint'
       }`"
     >
       <q-card-section
@@ -14,16 +16,20 @@
       >
         <!-- Company logo -->
         <q-img
-          v-if="state.activeCompany.value"
-          :src="state.activeCompany.value?.logo"
-          :alt="state.activeCompany.value?.name"
+          v-if="companiesState.activeCompany.value?.logo"
+          :src="companiesState.activeCompany.value?.logo"
+          :alt="companiesState.activeCompany.value?.name"
           class="company_selector__logo bg-white q-btn--round"
         />
 
         <!-- Default logo -->
         <svg
           v-else
-          fill="var(--q-accent)"
+          :fill="
+            companiesState.activeCompany.value
+              ? 'var(--q-accent)'
+              : 'var(--q-grey)'
+          "
           xmlns="http://www.w3.org/2000/svg"
           width="48px"
           height="48px"
@@ -49,9 +55,15 @@
         </svg>
 
         <!-- Company name -->
-        <div class="company_selector__name text-accent q-pl-md">
+        <div
+          class="company_selector__name q-pl-md"
+          :class="
+            companiesState.activeCompany.value ? 'text-accent' : 'text-grey'
+          "
+        >
           {{
-            state.activeCompany.value?.name || state.defaultCompany.value.name
+            companiesState.activeCompany.value?.name ||
+            companiesState.defaultCompany.value.name
           }}
         </div>
 
@@ -75,7 +87,11 @@
                     : 'M23.6667 18.334L14.3333 9.00064L5 18.334'
                 "
                 style="transition: 0.275s"
-                stroke="var(--q-accent)"
+                :stroke="
+                  companiesState.activeCompany.value
+                    ? 'var(--q-accent)'
+                    : 'var(--q-grey)'
+                "
                 stroke-width="3.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -85,41 +101,41 @@
         </q-btn>
       </q-card-section>
 
-      <div :style="isExpanded ? '' : ''">
-        <q-slide-transition appear>
-          <div v-if="isExpandedInter" class="q-px-md">
-            <q-separator />
+      <q-slide-transition appear>
+        <div v-if="isExpandedInter" class="q-px-md">
+          <q-separator />
 
-            <!-- Companies -->
-            <template v-if="state.companies.value.length">
-              <q-intersection
-                v-for="company in state.companies.value"
-                :key="company.id"
-                transition="scale"
-              >
-                <q-card>
-                  <q-card-section>
-                    {{ company.name }}
-                  </q-card-section>
-                </q-card>
-              </q-intersection>
-            </template>
+          <!-- Companies -->
+          <template v-if="companiesState.companies.value.length">
+            <q-intersection
+              v-for="company in companiesState.companies.value"
+              :key="company.id"
+              transition="scale"
+            >
+              <q-card>
+                <q-card-section>
+                  {{ company.name }}
+                </q-card-section>
+              </q-card>
+            </q-intersection>
+          </template>
 
-            <div v-else class="text-grey text-center q-mt-md">Нет компаний</div>
+          <div v-else class="text-grey text-center q-mt-md">Нет компаний</div>
 
-            <div class="row justify-center q-my-md">
-              <q-btn
-                color="accent"
-                round
-                unelevated
-                icon="add"
-                style="width: 44px; height: 44px"
-              />
-            </div>
+          <div class="row justify-center q-my-md">
+            <q-btn
+              color="accent"
+              round
+              unelevated
+              icon="add"
+              style="width: 44px; height: 44px"
+            />
           </div>
-        </q-slide-transition>
-      </div>
+        </div>
+      </q-slide-transition>
     </q-card>
+
+    <div v-if="isExpanded" style="width: 100%; height: 80px"></div>
 
     <DarkenScreen :show="isExpanded" @click="isExpandedInter = false" />
   </div>
@@ -131,7 +147,7 @@ import { useCompaniesStore } from 'stores/store-companies';
 import { ref, watch } from 'vue';
 import DarkenScreen from 'components/DarkenScreen.vue';
 
-const state = storeToRefs(useCompaniesStore());
+const companiesState = storeToRefs(useCompaniesStore());
 
 const isExpanded = ref(false);
 const isExpandedInter = ref(false);
@@ -143,7 +159,7 @@ watch(
       if (isExpanded.value) {
         isExpandedInter.value = true;
       }
-    }, 0);
+    }, 100);
   }
 );
 
@@ -161,7 +177,6 @@ watch(
 
 <style scoped lang="scss">
 .company_selector {
-  background: $tint;
   border-radius: 20px;
   z-index: 2001;
   transition: 0.5s;
@@ -171,10 +186,11 @@ watch(
 .company_selector__expanded {
   background: white;
   z-index: 2002;
-  transition: 0.5s;
+  transition: transform 0.5s ease-in-out;
   transform: scale(1.05);
   position: absolute;
-  top: calc(14px + env(safe-area-inset-top));
+  //top: calc(14px + env(safe-area-inset-top));
+  //top: calc(102px + env(safe-area-inset-top));
   width: calc(100% - 48px);
   box-shadow: rgba(0, 0, 0, 0.2) 0 20px 30px !important;
 }
