@@ -6,7 +6,7 @@
         <template #header>
           <ChatHeader>
             <template #interlocutor> Помощник </template>
-            <template #status> active </template>
+            <template #status> online </template>
 
             <template #avatar>
               <svg
