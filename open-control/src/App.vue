@@ -2,6 +2,8 @@
   <router-view />
 </template>
 
-<script setup lang="ts">
-
-</script>
+<style>
+:root {
+  --q-grey: #929e9c;
+}
+</style>

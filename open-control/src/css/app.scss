@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
 .container {
   padding: 24px;
   margin-top: 14px;
+  padding-bottom: calc(24px + 116px + 16px);
   padding-top: env(safe-area-inset-top);
 }
 
@@ -14,6 +21,28 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0 20px 30px !important;
 }
 
+.shadow-3 {
+  box-shadow: rgba(0, 0, 0, 0.1) 0 10px 20px !important;
+}
+
+.bg-tint {
+  background: $tint;
+}
+
+/*
+ * card
+ */
+.q-card {
+  border-radius: 20px;
+}
+
+.q-card__title {
+  font-size: 16px;
+}
+
+/*
+ * inactive page shade
+ */
 .page {
   &-nudger {
     transition: transform 0.4s;
@@ -36,13 +65,108 @@
   }
 }
 
-html {
-  //padding-bottom: env(safe-area-inset-bottom);
-}
-
-.slideInRight, .slideOutRight {
+/*
+ * ios slide animation
+ */
+.slideInRight, .slideOutRight{
   animation-duration: .4s;
   -webkit-animation-duration: .4s;
   -moz-animation-duration: .4s;
   -o-animation-duration: .4s;
+}
+
+.slideInUp, .slideOutDown {
+  animation-duration: .5s;
+  -webkit-animation-duration: .5s;
+  -moz-animation-duration: .5s;
+  -o-animation-duration: .5s;
+}
+
+/*
+ * push button
+ */
+.push-btn {
+  transition: 0.4s;
+}
+.push-btn:active {
+  transform: scale(0.85);
+}
+
+/*
+ * submit button
+ */
+.submit-btn {
+  border-radius: 20px;
+  background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
+  animation: gradient 1s ease-in-out infinite alternate;
+  width: 100%;
+  height: 56px;
+  font-size: 16px;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/*
+ * input
+ */
+.q-field, .q-field__control {
+  border-radius: 15px !important;
+}
+
+.q-field--focused {
+  box-shadow: 0 0 10px #fcb8ae !important;
+  transition: 0.4s;
+}
+.q-field__focusable-action {
+  color: $accent;
+  opacity: 1;
+}
+
+.q-field--outlined .q-field__control:before {
+  border: 1px solid $secondary
+}
+
+.q-field__marginal {
+  color: $grey
+}
+
+/*
+ * notification
+ */
+.q-notification {
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.6);
+  color: $accent !important;
+  border-radius: 15px;
+  box-shadow: none;
+}
+
+.q-notification__badge {
+  box-shadow: none;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.6);
+  color: $accent;
+}
+
+/*
+ * q-menu
+ */
+.q-menu {
+  box-shadow: none;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid $secondary;
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.q-menu__button {
+  border-radius: 12px;
+  padding: 8px 16px !important;
 }
