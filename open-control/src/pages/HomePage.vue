@@ -2,8 +2,8 @@
   <PageComponent>
     <PageBody>
       <div class="container">
-        <company-selector />
-        <quick-actions />
+        <CompanySelector />
+        <QuickActions />
       </div>
     </PageBody>
 
