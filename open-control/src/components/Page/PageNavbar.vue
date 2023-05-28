@@ -97,7 +97,7 @@
         :to="router.currentRoute.value.path + ROUTE_PATHS.CHAT_BOT"
       >
         <template #default>
-          <div>
+          <div class="bg-banner">
             <!-- * new -->
             <svg
               class="absolute-center"
@@ -109,7 +109,7 @@
             >
               <path
                 d="M62.5 62.5L87.5 87.5M41.6667 70.8333C25.5584 70.8333 12.5 57.775 12.5 41.6667C12.5 25.5584 25.5584 12.5 41.6667 12.5C57.775 12.5 70.8333 25.5584 70.8333 41.6667C70.8333 57.775 57.775 70.8333 41.6667 70.8333Z"
-                stroke="var(--q-accent)"
+                stroke="white"
                 stroke-width="8"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -266,7 +266,6 @@ const svg = {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  background: $tint;
   position: relative;
 }
 </style>

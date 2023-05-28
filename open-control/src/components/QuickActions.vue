@@ -9,7 +9,11 @@
         transition="scale"
         once
       >
-        <q-card flat v-ripple class="q-hoverable service_card q-btn__push">
+        <q-card
+          flat
+          v-ripple
+          class="q-hoverable service_card bg-banner q-btn__push"
+        >
           <q-card-section class="column">
             <div style="margin: 0 auto">
               <svg
@@ -183,7 +187,6 @@ const services = {
 }
 
 .service_cards__wrapper .service_card {
-  background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
   border-radius: 20px;
   color: white;
   min-width: 120px;

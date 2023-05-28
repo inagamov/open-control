@@ -358,7 +358,6 @@ const handleLogout = async () => {
 }
 
 ::v-deep(.q-tab__indicator) {
-  //background: $accent;
   background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
   animation: gradient 1s ease-in-out infinite alternate;
   height: 100%;
