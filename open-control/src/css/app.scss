@@ -41,6 +41,16 @@ body {
   border-radius: 20px;
 }
 
+.q-dialog__card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px !important;
+}
+
+.q-dialog__inner {
+  padding: 0;
+}
+
 .q-card__title {
   font-size: 16px;
 }

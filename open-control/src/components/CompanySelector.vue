@@ -268,7 +268,6 @@
                   } * 77.7px)`"
                   class="q-mt-md"
                   :items="companiesSearchResults"
-                  separator
                   v-slot="{ item, index }"
                 >
                   <div :key="index">

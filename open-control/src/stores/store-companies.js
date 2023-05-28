@@ -42,8 +42,12 @@ export const useCompaniesStore = defineStore('companies', {
 
     syncCompaniesStorage() {
       localStorage.setItem('companies', JSON.stringify(this.companies));
+      localStorage.setItem('activeCompany', JSON.stringify(this.activeCompany));
     },
 
+    /*
+     * attach / detach companies
+     */
     attachCompany(company) {
       this.companies.push(company);
       this.syncCompaniesStorage();
@@ -54,6 +58,37 @@ export const useCompaniesStore = defineStore('companies', {
       this.companies = this.companies.filter((item) => item !== company);
       this.syncCompaniesStorage();
       this.setActiveCompany();
+    },
+
+    /*
+     * team members
+     */
+    syncActiveCompanyWithCompanies() {
+      const foundCompany = this.companies.find(
+        (item) => item['ИНН'] === this.activeCompany['ИНН']
+      );
+      if (foundCompany) {
+        Object.assign(foundCompany, this.activeCompany);
+      }
+    },
+
+    addTeamMember(user) {
+      if (!this.activeCompany.members) {
+        this.activeCompany.members = [];
+      }
+      this.activeCompany.members.push(user.id);
+
+      this.syncActiveCompanyWithCompanies();
+      this.syncCompaniesStorage();
+    },
+
+    removeTeamMember(user) {
+      this.activeCompany.members = this.activeCompany.members.filter(
+        (member) => member !== user.id
+      );
+
+      this.syncActiveCompanyWithCompanies();
+      this.syncCompaniesStorage();
     },
   },
 });
