@@ -3,7 +3,7 @@
     bordered
     style="padding-bottom: calc(env(safe-area-inset-bottom) - 16px)"
   >
-    <div class="row justify-around q-pt-sm q-pb-md">
+    <div class="row justify-around q-pt-xs q-pb-sm">
       <!-- Home -->
       <q-btn
         flat
@@ -14,8 +14,8 @@
         <template #default>
           <div class="column">
             <svg
-              width="36"
-              height="36"
+              :width="svg.width"
+              :height="svg.height"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,7 @@
               />
             </svg>
             <span
+              style="font-size: 13px"
               :class="
                 router.currentRoute.value.path === state.navItems.value.home.to
                   ? 'text-accent'
@@ -55,8 +56,8 @@
         <template #default>
           <div class="column">
             <svg
-              width="36"
-              height="36"
+              :width="svg.width"
+              :height="svg.height"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +76,7 @@
             </svg>
 
             <span
+              style="font-size: 13px"
               :class="
                 router.currentRoute.value.path === state.navItems.value.chats.to
                   ? 'text-accent'
@@ -91,7 +93,7 @@
       <q-btn
         round
         flat
-        class="search-btn q-btn__push"
+        class="q-btn__search q-btn__push"
         :to="router.currentRoute.value.path + ROUTE_PATHS.CHAT_BOT"
       >
         <template #default>
@@ -99,8 +101,8 @@
             <!-- * new -->
             <svg
               class="absolute-center"
-              width="44"
-              height="44"
+              :width="75 / 1.75"
+              :height="75 / 1.75"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -142,8 +144,8 @@
         <template #default>
           <div class="column">
             <svg
-              width="36"
-              height="36"
+              :width="svg.width"
+              :height="svg.height"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -162,6 +164,7 @@
             </svg>
 
             <span
+              style="font-size: 13px"
               :class="
                 router.currentRoute.value.path ===
                 state.navItems.value.checkups.to
@@ -185,8 +188,8 @@
         <template #default>
           <div class="column">
             <svg
-              width="36"
-              height="36"
+              :width="svg.width"
+              :height="svg.height"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -216,6 +219,7 @@
             </svg>
 
             <span
+              style="font-size: 13px"
               :class="
                 router.currentRoute.value.path ===
                 state.navItems.value.profile.to
@@ -240,6 +244,11 @@ import { useIndexStore } from 'stores/store-index';
 const router = useRouter();
 
 const state = storeToRefs(useIndexStore());
+
+const svg = {
+  width: 33,
+  height: 33,
+};
 </script>
 
 <style scoped lang="scss">
@@ -248,12 +257,12 @@ const state = storeToRefs(useIndexStore());
   height: 60px;
 }
 
-.search-btn {
-  width: 80px;
-  height: 80px;
-  margin-top: -40px;
+.q-btn__search {
+  width: 75px;
+  height: 75px;
+  margin-top: -30px;
 }
-.search-btn div {
+.q-btn__search div {
   width: 100%;
   height: 100%;
   border-radius: 100%;
