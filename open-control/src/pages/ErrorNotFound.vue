@@ -18,8 +18,6 @@
         </div>
       </div>
     </PageBody>
-
-    <page-footer />
   </PageComponent>
 </template>
 

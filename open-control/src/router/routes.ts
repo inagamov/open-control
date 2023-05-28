@@ -12,7 +12,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/HomePage.vue'),
         children: [
           {
-            path: ROUTE_PATHS.HOME + ROUTE_PATHS.CHAT_BOT,
+            path: ROUTE_PATHS.CHAT_BOT,
             component: () => import('pages/ChatBotPage.vue'),
           },
         ],

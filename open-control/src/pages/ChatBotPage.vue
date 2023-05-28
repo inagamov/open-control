@@ -36,7 +36,7 @@
 
         <!-- Body -->
         <template #body>
-          <ChatBody />
+          <ChatBody :messages="messages"/>
         </template>
 
         <!-- Footer -->
@@ -60,7 +60,7 @@
               'Как восстановить данные из бэкапа',
               'Как установить приложение',
             ]"
-          ></ChatFooter>
+           @send="chatStore.send"></ChatFooter>
         </template>
       </ChatComponent>
     </PageBody>
@@ -74,4 +74,19 @@ import ChatBody from 'components/Chat/ChatBody.vue';
 import ChatComponent from 'components/Chat/ChatComponent.vue';
 import PageComponent from 'components/Page/PageComponent.vue';
 import PageBody from 'components/Page/PageBody.vue';
+import {onBeforeMount, ref} from 'vue';
+import {storeToRefs} from 'pinia';
+import {useChatStore} from '../stores/store-chat';
+import {useAuthStore} from '../stores/store-auth';
+
+const chatStore = useChatStore();
+const { user } = storeToRefs(useAuthStore());
+const { messages } = storeToRefs(useChatStore());
+
+onBeforeMount(() => {
+  console.log('user: ', user.value)
+  chatStore.loadChatHistory()
+  console.log('messages: ', messages.value)
+})
+
 </script>

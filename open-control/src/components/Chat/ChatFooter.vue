@@ -39,6 +39,7 @@
       :color="!text?.length ? 'secondary' : 'accent'"
       round
       class="footer__button"
+      @click="() => { $emit('send', text); text = ''}"
     >
       <template #default>
         <transition appear enter-active-class="animated zoomIn">
@@ -89,9 +90,8 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 
-const text = ref();
 const placeholder = ref('Сообщение');
-
+const text = ref(null);
 const props = defineProps({
   placeholders: {
     type: Array,
@@ -99,11 +99,12 @@ const props = defineProps({
   },
 });
 
+defineEmits(['send']);
+
 function animate() {
   let sentenceIndex = 0;
   let i = 0;
   let isForward = true;
-
   setInterval(() => {
     const sentence = props.placeholders[sentenceIndex];
     if (isForward) {
@@ -126,7 +127,7 @@ function animate() {
   }, 100);
 }
 
-onBeforeMount(() => {
+onBeforeMount  (() => {
   if (props.placeholders) {
     animate();
   }

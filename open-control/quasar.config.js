@@ -93,6 +93,9 @@ module.exports = configure(function (ctx) {
             include: path.resolve(__dirname, './src/i18n/**'),
           },
         ],
+        [
+          '@originjs/vite-plugin-content', {}
+        ]
       ],
     },
 
