@@ -2,6 +2,13 @@
   <PageComponent>
     <PageBody>
       <div class="container">
+        <div class="row no-wrap justify-between">
+          <q-img src="/public/logo.png" style="width: 200px" class="q-mb-lg" />
+          <q-img src="/public/mos.png" style="width: 63px" class="q-mb-lg" />
+        </div>
+
+        <q-separator class="q-mb-lg" />
+
         <CompanySelector />
         <QuickActions />
       </div>
