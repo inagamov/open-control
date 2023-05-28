@@ -6,9 +6,9 @@ export const useIndexStore = defineStore('index', {
     navItems: {
       home: { root: ROUTE_PATHS.HOME, to: ROUTE_PATHS.HOME, label: 'Главная' },
       chats: { root: ROUTE_PATHS.CHATS, to: ROUTE_PATHS.CHATS, label: 'Чаты' },
-      checkups: {
-        root: ROUTE_PATHS.CHECKUPS,
-        to: ROUTE_PATHS.CHECKUPS,
+      meetings: {
+        root: ROUTE_PATHS.MEETINGS,
+        to: ROUTE_PATHS.MEETINGS,
         label: 'Встречи',
       },
       profile: {

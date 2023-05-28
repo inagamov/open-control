@@ -32,6 +32,16 @@ const routes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: ROUTE_PATHS.MEETINGS,
+        component: () => import('pages/MeetingsPage.vue'),
+        children: [
+          {
+            path: ROUTE_PATHS.MEETINGS + ROUTE_PATHS.CHAT_BOT,
+            component: () => import('pages/ChatBotPage.vue'),
+          },
+        ],
+      },
+      {
         path: ROUTE_PATHS.PROFILE,
         component: () => import('pages/ProfilePage.vue'),
         children: [
