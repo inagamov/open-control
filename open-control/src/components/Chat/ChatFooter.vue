@@ -24,14 +24,16 @@
       </template>
     </q-btn>
 
-    <q-input
-      v-model="text"
-      dense
-      borderless
-      :placeholder="placeholder"
-      class="q-px-sm"
-      style="margin: auto 0; width: 100%"
-    />
+    <div class="q-px-sm" style="width: 100%">
+      <q-input
+        v-model="text"
+        dense
+        borderless
+        :placeholder="placeholder"
+        class="q-px-sm"
+        style="margin: auto 0; width: 100%"
+      />
+    </div>
 
     <q-btn
       :flat="!text?.length"
@@ -39,7 +41,12 @@
       :color="!text?.length ? 'secondary' : 'accent'"
       round
       class="footer__button"
-      @click="() => { $emit('send', text); text = ''}"
+      @click="
+        () => {
+          $emit('send', text);
+          text = '';
+        }
+      "
     >
       <template #default>
         <transition appear enter-active-class="animated zoomIn">
@@ -127,7 +134,7 @@ function animate() {
   }, 100);
 }
 
-onBeforeMount  (() => {
+onBeforeMount(() => {
   if (props.placeholders) {
     animate();
   }
@@ -138,8 +145,7 @@ onBeforeMount  (() => {
 ::v-deep(.q-field__control) {
   border-radius: 20px;
   height: 33px;
-  background: #f2f2f2;
-  padding: 0 12px !important;
+  padding: 0 4px !important;
 }
 
 .footer__button {
@@ -149,5 +155,13 @@ onBeforeMount  (() => {
   height: 33px;
   min-height: 33px;
   max-height: 33px;
+}
+
+::v-deep(.q-field) {
+  background: #f2f2f2;
+}
+
+::v-deep(.q-field--focused) {
+  box-shadow: none !important;
 }
 </style>
