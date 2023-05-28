@@ -12,7 +12,9 @@
         <q-card
           flat
           v-ripple
-          class="q-hoverable service_card bg-banner q-btn__push"
+          class="q-hoverable service_card bg-banner"
+          :class="service.disabled ? 'q-btn__disabled' : 'q-btn__push'"
+          @click="service.disabled ? (isSubscriptionOfferShown = true) : ''"
         >
           <q-card-section class="column">
             <div style="margin: 0 auto">
@@ -150,15 +152,19 @@
         </q-card>
       </q-intersection>
     </div>
+
+    <SubscriptionOfferModal
+      :is-shown="isSubscriptionOfferShown"
+      @hide="isSubscriptionOfferShown = false"
+    />
   </div>
 </template>
 
 <script setup>
+import SubscriptionOfferModal from 'components/SubscriptionOfferModal.vue';
+import { ref } from 'vue';
+
 const services = {
-  calculator: {
-    value: 'calculator',
-    label: 'Калькулятор рисков',
-  },
   meetings: {
     value: 'meetings',
     label: 'Назначить встречу',
@@ -167,11 +173,19 @@ const services = {
     value: 'complaint',
     label: 'Написать жалобу',
   },
+  calculator: {
+    value: 'calculator',
+    label: 'Калькулятор рисков',
+    disabled: true,
+  },
   consultation: {
     value: 'consultation',
     label: 'Консультация с юрисом',
+    disabled: true,
   },
 };
+
+const isSubscriptionOfferShown = ref(false);
 </script>
 
 <style scoped>
