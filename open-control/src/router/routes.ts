@@ -19,11 +19,23 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: ROUTE_PATHS.CHATS,
-        component: () => import('pages/HomePage.vue'),
+        component: () => import('pages/ChatsPage.vue'),
+        children: [
+          {
+            path: ROUTE_PATHS.HOME + ROUTE_PATHS.CHAT_BOT,
+            component: () => import('pages/ChatBotPage.vue'),
+          },
+        ],
       },
       {
-        path: ROUTE_PATHS.CHECKUPS,
+        path: ROUTE_PATHS.MEETINGS,
         component: () => import('pages/HomePage.vue'),
+        children: [
+          {
+            path: ROUTE_PATHS.HOME + ROUTE_PATHS.CHAT_BOT,
+            component: () => import('pages/ChatBotPage.vue'),
+          },
+        ],
       },
       {
         path: ROUTE_PATHS.PROFILE,

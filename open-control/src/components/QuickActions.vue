@@ -14,7 +14,15 @@
           v-ripple
           class="q-hoverable service_card bg-banner"
           :class="service.disabled ? 'q-btn__disabled' : 'q-btn__push'"
-          @click="service.disabled ? (isSubscriptionOfferShown = true) : ''"
+          @click="
+            service.disabled
+              ? (isSubscriptionOfferShown = true)
+              : service === services.meetings
+              ? router.push(ROUTE_PATHS.HOME + ROUTE_PATHS.CHAT_BOT)
+              : service === services.complaint
+              ? (isComplaintModalShown = true)
+              : ''
+          "
         >
           <q-card-section class="column">
             <div style="margin: 0 auto">
@@ -107,21 +115,51 @@
                 />
               </svg>
 
-              <svg
-                v-if="service === services.complaint"
-                width="48"
-                height="48"
-                viewBox="0 0 160 160"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M73.3698 86.6789C73.3698 90.3609 76.3545 93.3455 80.0365 93.3455C83.7185 93.3455 86.7031 90.3609 86.7031 86.6789V66.6789C86.7031 62.997 83.7185 60.0122 80.0365 60.0122C76.3545 60.0122 73.3698 62.997 73.3698 66.6789V86.6789ZM86.7031 106.604C86.7031 102.922 83.7185 99.9375 80.0365 99.9375C76.3545 99.9375 73.3698 102.922 73.3698 106.604V106.679C73.3698 110.361 76.3545 113.346 80.0365 113.346C83.7185 113.346 86.7031 110.361 86.7031 106.679V106.604ZM62.5521 31.0879C70.1725 17.3717 89.8985 17.3717 97.5185 31.0879L141.525 110.3C148.93 123.63 139.291 140.012 124.042 140.012H36.0288C20.7791 140.012 11.1397 123.63 18.5456 110.3L62.5521 31.0879Z"
-                  fill="white"
-                />
-              </svg>
+              <template v-if="service === services.complaint">
+                <transition
+                  appear
+                  enter-active-class="animated zoomIn"
+                  leave-active-class="anime iodajsoi dja"
+                >
+                  <svg
+                    v-if="!isCompaintSent"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 160 160"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M73.3698 86.6789C73.3698 90.3609 76.3545 93.3455 80.0365 93.3455C83.7185 93.3455 86.7031 90.3609 86.7031 86.6789V66.6789C86.7031 62.997 83.7185 60.0122 80.0365 60.0122C76.3545 60.0122 73.3698 62.997 73.3698 66.6789V86.6789ZM86.7031 106.604C86.7031 102.922 83.7185 99.9375 80.0365 99.9375C76.3545 99.9375 73.3698 102.922 73.3698 106.604V106.679C73.3698 110.361 76.3545 113.346 80.0365 113.346C83.7185 113.346 86.7031 110.361 86.7031 106.679V106.604ZM62.5521 31.0879C70.1725 17.3717 89.8985 17.3717 97.5185 31.0879L141.525 110.3C148.93 123.63 139.291 140.012 124.042 140.012H36.0288C20.7791 140.012 11.1397 123.63 18.5456 110.3L62.5521 31.0879Z"
+                      fill="white"
+                    />
+                  </svg>
+                </transition>
+
+                <svg
+                  v-if="isCompaintSent"
+                  width="48"
+                  height="48"
+                  class="checkmark"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 52 52"
+                >
+                  <circle
+                    class="checkmark__circle"
+                    cx="26"
+                    cy="26"
+                    r="25"
+                    fill="none"
+                  />
+                  <path
+                    class="checkmark__check"
+                    fill="none"
+                    d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                  />
+                </svg>
+              </template>
 
               <svg
                 v-if="service === services.consultation"
@@ -157,12 +195,31 @@
       :is-shown="isSubscriptionOfferShown"
       @hide="isSubscriptionOfferShown = false"
     />
+    <ComplaintModal
+      :is-shown="isComplaintModalShown"
+      @hide="isComplaintModalShown = false"
+      @send="handleComplaintSend()"
+    />
   </div>
 </template>
 
 <script setup>
 import SubscriptionOfferModal from 'components/SubscriptionOfferModal.vue';
 import { ref } from 'vue';
+import { ROUTE_PATHS } from 'src/constants/paths';
+import { useRouter } from 'vue-router';
+import ComplaintModal from 'components/ComplaintModal.vue';
+
+const router = useRouter();
+
+const handleComplaintSend = () => {
+  isComplaintModalShown.value = false;
+  isCompaintSent.value = true;
+
+  setTimeout(() => {
+    isCompaintSent.value = false;
+  }, 5000);
+};
 
 const services = {
   meetings: {
@@ -186,6 +243,9 @@ const services = {
 };
 
 const isSubscriptionOfferShown = ref(false);
+
+const isComplaintModalShown = ref(false);
+const isCompaintSent = ref(false);
 </script>
 
 <style scoped>
@@ -210,5 +270,59 @@ const isSubscriptionOfferShown = ref(false);
   text-align: center;
   line-height: 16px;
   font-weight: 500;
+}
+
+/*
+ * check mark animation
+ */
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: white;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: block;
+  stroke-width: 2;
+  stroke: var(--q-accent);
+  stroke-miterlimit: 10;
+  margin-bottom: 9px;
+  box-shadow: inset 0 0 0 white;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0 0 0 30px white;
+  }
 }
 </style>
