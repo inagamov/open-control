@@ -3,6 +3,7 @@
     <PageBody>
       <div class="container">
         <CompanySelector v-if="!user.roles.includes('inspector')" />
+        <div class="text-grey text-center q-pt-lg">Чаты не найдены</div>
       </div>
     </PageBody>
 
