@@ -160,7 +160,7 @@
                     </div>
 
                     <div class="text-grey">
-                      {{ company['ДатаОГРН'] }}
+                      {{ date.formatDate(company['ДатаОГРН'], 'DD.MM.YYYY') }}
                     </div>
                   </div>
                 </q-card-section>
@@ -295,7 +295,9 @@
                           </div>
 
                           <div class="text-grey">
-                            {{ item['ДатаОГРН'] }}
+                            {{
+                              date.formatDate(item['ДатаОГРН'], 'DD.MM.YYYY')
+                            }}
                           </div>
                         </div>
                       </q-card-section>
@@ -321,7 +323,7 @@ import { useCompaniesStore } from 'stores/store-companies';
 import { ref, watch } from 'vue';
 import DarkenScreen from 'components/DarkenScreen.vue';
 import { api } from 'boot/axios';
-import { useQuasar } from 'quasar';
+import { date, useQuasar } from 'quasar';
 
 const $q = useQuasar();
 
