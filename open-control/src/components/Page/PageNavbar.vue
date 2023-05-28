@@ -95,7 +95,7 @@
         round
         flat
         class="q-btn__search q-btn__push shadow-3"
-        :to="ROUTE_PATHS.CHAT_BOT"
+        :to="router.currentRoute.value.path + ROUTE_PATHS.CHAT_BOT"
       >
         <template #default>
           <div class="bg-banner">
