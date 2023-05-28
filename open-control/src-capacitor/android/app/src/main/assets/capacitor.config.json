@@ -1,0 +1,10 @@
+{
+	"appId": "com.goldenbrains.opencontrol",
+	"appName": "Open Control",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"server": {
+		"url": "http://192.168.88.171:9500"
+	}
+}
