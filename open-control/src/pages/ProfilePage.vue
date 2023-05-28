@@ -7,7 +7,7 @@
       >
         <q-tabs
           v-model="tab"
-          class="text-accent bg-tint q-mb-md"
+          class="text-accent bg-tint q-mb-md shadow-3"
           inline-label
           style="border-radius: 20px"
         >
