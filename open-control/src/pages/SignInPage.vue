@@ -179,7 +179,7 @@ const slides = {
 const slidePrev = ref(slides.vasyly.value);
 const slide = ref(slides.vasyly.value);
 const sliderAnimationDuration = 10 * 1000;
-const sliderAnimationDelay = 500 * 2;
+const sliderAnimationDelay = 500;
 
 onBeforeMount(() => {
   setInterval(() => {
