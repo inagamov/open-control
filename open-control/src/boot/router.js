@@ -4,18 +4,21 @@ import { useIndexStore } from 'stores/store-index';
 import { ROUTE_PATHS } from 'src/constants/paths';
 import { useAuthStore } from 'stores/store-auth';
 import { useCompaniesStore } from 'stores/store-companies';
+import { useNotificationsStore } from 'stores/store-notifications';
 
 const state = storeToRefs(useIndexStore());
 
 const authState = storeToRefs(useAuthStore());
 const { auth } = useAuthStore();
 const { loadCompanies } = useCompaniesStore();
+const { loadNotifications } = useNotificationsStore();
 
 let routerInstance = null;
 
 export default boot(({ router }) => {
   auth();
   loadCompanies();
+  loadNotifications();
 
   router.beforeEach((to, from, next) => {
     if (!authState.isAuthed.value && to.path !== ROUTE_PATHS.SIGN_IN) {

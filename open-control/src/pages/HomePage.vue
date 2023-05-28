@@ -11,6 +11,7 @@
 
         <CompanySelector />
         <QuickActions />
+        <Notifications />
       </div>
     </PageBody>
 
@@ -24,4 +25,5 @@ import QuickActions from 'components/QuickActions.vue';
 import PageComponent from 'components/Page/PageComponent.vue';
 import PageBody from 'components/Page/PageBody.vue';
 import PageNavbar from 'components/Page/PageNavbar.vue';
+import Notifications from 'components/NotificationsComponent.vue';
 </script>
