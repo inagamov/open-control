@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="text-h4" style="padding-bottom: 16px">Уведомления</div>
+    <div
+      class="text-h4"
+      style="padding-bottom: 16px"
+      :style="user.roles.includes('inspector') ? 'padding-top: 0' : ''"
+    >
+      Уведомления
+    </div>
 
     <!-- Filters -->
     <div class="row q-mb-md">
@@ -96,9 +102,12 @@
 import { storeToRefs } from 'pinia';
 import { useNotificationsStore } from 'stores/store-notifications';
 import { date } from 'quasar';
+import { useAuthStore } from 'stores/store-auth';
 
 const notificationsState = storeToRefs(useNotificationsStore());
 const { changeFilter, markAsRead } = useNotificationsStore();
+
+const { user } = storeToRefs(useAuthStore());
 </script>
 
 <style scoped>

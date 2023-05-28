@@ -9,8 +9,8 @@
 
         <q-separator class="q-mb-lg" />
 
-        <CompanySelector />
-        <QuickActions />
+        <CompanySelector v-if="!user.roles.includes('inspector')" />
+        <QuickActions v-if="!user.roles.includes('inspector')" />
         <Notifications />
       </div>
     </PageBody>
@@ -26,4 +26,8 @@ import PageComponent from 'components/Page/PageComponent.vue';
 import PageBody from 'components/Page/PageBody.vue';
 import PageNavbar from 'components/Page/PageNavbar.vue';
 import Notifications from 'components/NotificationsComponent.vue';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from 'stores/store-auth';
+
+const { user } = storeToRefs(useAuthStore());
 </script>

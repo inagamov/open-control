@@ -6,6 +6,7 @@
         style="padding-bottom: 16px; position: sticky; top: 0; z-index: 1"
       >
         <q-tabs
+          v-if="!user.roles.includes('inspector')"
           v-model="tab"
           class="text-accent bg-tint q-mb-md shadow-3"
           inline-label
@@ -746,7 +747,7 @@ const { addTeamMember, removeTeamMember } = useCompaniesStore();
 /*
  * tabs
  */
-const tab = ref('companies');
+const tab = ref('profile');
 
 /*
  * edit user profile

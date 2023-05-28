@@ -91,6 +91,7 @@
 
       <!-- CHAT BOT -->
       <q-btn
+        v-if="!user.roles.includes('inspector')"
         round
         flat
         class="q-btn__search q-btn__push shadow-3"
@@ -241,6 +242,7 @@ import { ROUTE_PATHS } from 'src/constants/paths';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useIndexStore } from 'stores/store-index';
+import { useAuthStore } from 'stores/store-auth';
 const router = useRouter();
 
 const state = storeToRefs(useIndexStore());
@@ -249,6 +251,8 @@ const svg = {
   width: 33,
   height: 33,
 };
+
+const { user } = storeToRefs(useAuthStore());
 </script>
 
 <style scoped lang="scss">
