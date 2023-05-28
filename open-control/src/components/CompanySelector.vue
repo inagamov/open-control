@@ -2,7 +2,7 @@
   <div>
     <q-card
       flat
-      :class="`company_selector ${
+      :class="`company_selector  ${
         isExpanded
           ? 'company_selector__expanded'
           : !companiesState.activeCompany.value
@@ -33,6 +33,7 @@
           xmlns="http://www.w3.org/2000/svg"
           width="48px"
           height="48px"
+          style="min-width: 48px"
           viewBox="0 0 100 100"
           xml:space="preserve"
         >
@@ -56,13 +57,13 @@
 
         <!-- Company name -->
         <div
-          class="company_selector__name q-pl-md"
+          class="company_selector__name q-pl-md ellipsis"
           :class="
             companiesState.activeCompany.value ? 'text-accent' : 'text-grey'
           "
         >
           {{
-            companiesState.activeCompany.value?.name ||
+            companiesState.activeCompany.value?.['НаимСокрЮЛ'] ||
             companiesState.defaultCompany.value.name
           }}
         </div>
@@ -103,33 +104,206 @@
 
       <q-slide-transition appear>
         <div v-if="isExpandedInter" class="q-px-md">
-          <q-separator />
-
           <!-- Companies -->
-          <template v-if="companiesState.companies.value.length">
-            <q-intersection
-              v-for="company in companiesState.companies.value"
+          <div v-if="companiesState.companies.value.length">
+            <div
+              v-for="(company, index) in companiesState.companies.value"
               :key="company.id"
-              transition="scale"
             >
-              <q-card>
-                <q-card-section>
-                  {{ company.name }}
-                </q-card-section>
-              </q-card>
-            </q-intersection>
-          </template>
+              <q-slide-item
+                flat
+                v-ripple
+                class="q-hoverable"
+                :class="`${
+                  companiesState.activeCompany.value === company
+                    ? 'bg-tint text-accent'
+                    : 'bg-grey-2'
+                } ${index !== 0 ? 'q-mt-md' : ''}`"
+                style="border-radius: 15px; transition: 0.4s"
+                @click="
+                  setActiveCompany(company);
+                  isExpandedInter = false;
+                "
+                @right="detachCompany(company)"
+                right-color="red"
+              >
+                <template
+                  v-if="companiesState.companies.value.length > 1"
+                  #right
+                >
+                  <q-icon name="delete" />
+                </template>
 
+                <q-card-section>
+                  <div style="font-weight: 500" class="ellipsis-2-lines">
+                    {{ company['НаимСокрЮЛ'] }}
+                    <transition
+                      appear
+                      enter-active-class="animated zoomIn"
+                      leave-active-class="animated zoomOut"
+                    >
+                      <q-icon
+                        v-if="companiesState.activeCompany.value === company"
+                        color="accent"
+                        name="done"
+                        style="font-weight: 600; font-size: 16px"
+                      />
+                    </transition>
+                  </div>
+
+                  <div class="row justify-between">
+                    <div>
+                      <span class="text-grey">ИНН:</span>
+                      <span class="text-black q-pl-xs">
+                        {{ company['ИНН'] }}
+                      </span>
+                    </div>
+
+                    <div class="text-grey">
+                      {{ company['ДатаОГРН'] }}
+                    </div>
+                  </div>
+                </q-card-section>
+              </q-slide-item>
+            </div>
+          </div>
+
+          <!-- No companies text -->
           <div v-else class="text-grey text-center q-mt-md">Нет компаний</div>
 
-          <div class="row justify-center q-my-md">
-            <q-btn
-              color="accent"
-              round
-              unelevated
-              icon="add"
-              style="width: 44px; height: 44px"
-            />
+          <!-- Add company -->
+          <div class="q-my-md">
+            <div class="row justify-center">
+              <q-btn
+                color="accent"
+                round
+                unelevated
+                style="
+                  width: 44px;
+                  height: 44px;
+                  background: linear-gradient(
+                    136.37deg,
+                    #f75d47 19.2%,
+                    #e13925 75.6%
+                  ) !important;
+                  animation: gradient 1s ease-in-out infinite alternate;
+                "
+                @click="isSearching = !isSearching"
+              >
+                <template #default>
+                  <svg
+                    width="24px"
+                    height="24px"
+                    :style="`transition: 0.4s; ${
+                      isSearching
+                        ? 'transform: rotate(135deg);'
+                        : 'transform: rotate(0deg);'
+                    }`"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title />
+
+                    <g>
+                      <g data-name="add">
+                        <g>
+                          <line
+                            fill="none"
+                            stroke="white"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            x1="12"
+                            x2="12"
+                            y1="19"
+                            y2="5"
+                          />
+
+                          <line
+                            fill="none"
+                            stroke="white"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            x1="5"
+                            x2="19"
+                            y1="12"
+                            y2="12"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </template>
+              </q-btn>
+            </div>
+
+            <q-slide-transition>
+              <div v-if="isSearching">
+                <!-- Company search input -->
+                <q-input
+                  v-model="search"
+                  outlined
+                  color="accent"
+                  class="q-mt-md"
+                  :loading="loading"
+                  placeholder="Поиск..."
+                >
+                  <template #append>
+                    <q-btn
+                      v-if="!loading"
+                      round
+                      unelevated
+                      icon="search"
+                      @click="fetchCompanies()"
+                    />
+                  </template>
+                </q-input>
+
+                <!-- Company search results -->
+                <q-virtual-scroll
+                  v-if="companiesSearchResults.length"
+                  :style="`height: calc(${
+                    companiesSearchResults.length === 1 ? '1' : '2'
+                  } * 77.7px)`"
+                  class="q-mt-md"
+                  :items="companiesSearchResults"
+                  separator
+                  v-slot="{ item, index }"
+                >
+                  <div :key="index">
+                    <q-card
+                      v-ripple
+                      flat
+                      class="q-hoverable bg-grey-2"
+                      :class="index !== 0 ? 'q-mt-md' : ''"
+                      style="border-radius: 15px"
+                      @click="
+                        attachCompany(item);
+                        isSearching = false;
+                      "
+                    >
+                      <q-card-section>
+                        <div style="font-weight: 500">
+                          {{ item['НаимСокрЮЛ'] }}
+                        </div>
+
+                        <div class="row justify-between">
+                          <div>
+                            <span class="text-grey">ИНН:</span>
+                            {{ item['ИНН'] }}
+                          </div>
+
+                          <div class="text-grey">
+                            {{ item['ДатаОГРН'] }}
+                          </div>
+                        </div>
+                      </q-card-section>
+                    </q-card>
+                  </div>
+                </q-virtual-scroll>
+              </div>
+            </q-slide-transition>
           </div>
         </div>
       </q-slide-transition>
@@ -146,9 +320,17 @@ import { storeToRefs } from 'pinia';
 import { useCompaniesStore } from 'stores/store-companies';
 import { ref, watch } from 'vue';
 import DarkenScreen from 'components/DarkenScreen.vue';
+import { api } from 'boot/axios';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
 
 const companiesState = storeToRefs(useCompaniesStore());
+const { attachCompany, detachCompany, setActiveCompany } = useCompaniesStore();
 
+/*
+ * expansion
+ */
 const isExpanded = ref(false);
 const isExpandedInter = ref(false);
 
@@ -173,6 +355,36 @@ watch(
     }, 350);
   }
 );
+
+/*
+ * companies search
+ */
+const search = ref('');
+const isSearching = ref(false);
+
+const companiesSearchResults = ref([]);
+const loading = ref(false);
+
+const fetchCompanies = () => {
+  loading.value = true;
+
+  api
+    .get(
+      `https://api-fns.ru/api/search?q=${search.value}&filter=active&key=aca84a2ffd660660809b3aa3882731a720fead3f`
+    )
+    .then((response) => {
+      companiesSearchResults.value = response.data.items.map(
+        (item) => Object.values(item)[0]
+      );
+      // localStorage.setItem('companies', JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
 </script>
 
 <style scoped lang="scss">

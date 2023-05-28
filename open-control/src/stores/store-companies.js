@@ -5,18 +5,55 @@ export const useCompaniesStore = defineStore('companies', {
     companies: [],
     activeCompany: null,
     defaultCompany: {
-      name: 'ООО «Ваша компания»',
+      name: 'ООО «Ваша Компания»',
     },
   }),
+
   actions: {
-    setActiveCompany(company = null) {
-      if (!company) {
-        company = this.companies?.[0];
+    loadCompanies() {
+      const storedCompanies = localStorage.getItem('companies');
+
+      if (storedCompanies) {
+        this.companies = JSON.parse(storedCompanies);
       }
 
+      this.setActiveCompany();
+    },
+
+    setActiveCompany(company = null) {
       if (company) {
         this.activeCompany = company;
+        localStorage.setItem(
+          'activeCompany',
+          JSON.stringify(this.activeCompany)
+        );
+      } else if (
+        (!this.activeCompany ||
+          !this.companies.find((item) => item === this.activeCompany)) &&
+        this.companies.length > 0
+      ) {
+        this.activeCompany = this.companies[0];
+        localStorage.setItem(
+          'activeCompany',
+          JSON.stringify(this.activeCompany)
+        );
       }
+    },
+
+    syncCompaniesStorage() {
+      localStorage.setItem('companies', JSON.stringify(this.companies));
+    },
+
+    attachCompany(company) {
+      this.companies.push(company);
+      this.syncCompaniesStorage();
+      this.setActiveCompany();
+    },
+
+    detachCompany(company) {
+      this.companies = this.companies.filter((item) => item !== company);
+      this.syncCompaniesStorage();
+      this.setActiveCompany();
     },
   },
 });
