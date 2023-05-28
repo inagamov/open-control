@@ -8,8 +8,8 @@
         <!-- Write complaint -->
         <q-editor
           v-model="complaint"
-          min-height="20rem"
-          max-height="20rem"
+          min-height="10rem"
+          max-height="10rem"
           toolbar-text-color="grey"
           toolbar-toggle-color="black"
         />
@@ -28,7 +28,6 @@
               position: 'top',
             });
             $emit('send');
-            router.push(ROUTE_PATHS.MEETINGS);
           "
         />
       </q-card-section>
@@ -45,7 +44,6 @@ import { ROUTE_PATHS } from 'src/constants/paths';
 defineEmits(['hide', 'send']);
 
 const $q = useQuasar();
-const router = useRouter();
 
 /*
  * display
