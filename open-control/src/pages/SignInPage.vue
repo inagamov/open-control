@@ -74,7 +74,7 @@
 
           <!-- Footer -->
           <q-btn
-            class="submit-btn push-btn q-mt-lg"
+            class="q-btn__submit q-btn__push q-mt-lg"
             :disable="!form?.email || !form?.password"
             :loading="authState.loading?.value"
             flat
@@ -113,7 +113,7 @@
             bordered
             v-ripple
             style="border-radius: 20px"
-            class="full-width q-hoverable push-btn q-mb-lg"
+            class="full-width q-hoverable q-btn__push q-mb-lg"
             @click="submit()"
           >
             <q-card-section class="q-pa-sm row no-wrap">
@@ -124,7 +124,7 @@
               />
 
               <div style="margin: auto 0" class="q-pl-sm">
-                Войти через «Гос услуги»
+                Войти через «Гос Услуги»
               </div>
             </q-card-section>
           </q-card>

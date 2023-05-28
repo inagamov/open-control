@@ -7,12 +7,24 @@
       >
         <q-tabs
           v-model="tab"
-          class="text-accent bg-tint q-mb-lg shadow-3"
+          class="text-accent bg-tint q-mb-md"
           inline-label
           style="border-radius: 20px"
         >
-          <q-tab name="profile" icon="account_circle" label="Профиль" no-caps />
-          <q-tab name="companies" icon="store" label="Компании" no-caps />
+          <q-tab
+            class="q-btn__push"
+            name="profile"
+            icon="account_circle"
+            label="Профиль"
+            no-caps
+          />
+          <q-tab
+            class="q-btn__push"
+            name="companies"
+            icon="store"
+            label="Компании"
+            no-caps
+          />
         </q-tabs>
       </div>
 
@@ -23,6 +35,7 @@
             <!-- Avatar -->
             <div class="row justify-center relative-position">
               <q-avatar size="200px" color="tint" text-color="accent">
+                <!-- User avatar-->
                 <q-img
                   v-if="userCopy?.avatar"
                   :src="userCopy?.avatar"
@@ -30,21 +43,25 @@
                   style="object-fit: cover; height: 100%"
                 />
 
-                <template v-else>{{
-                  userCopy?.name
-                    .split(' ')
-                    .map((word) => word.charAt(0))
-                    .join('')
-                    .toUpperCase()
-                    .slice(0, 2)
-                }}</template>
+                <!-- User initials -->
+                <template v-else>
+                  {{
+                    userCopy?.name
+                      .split(' ')
+                      .map((word) => word.charAt(0))
+                      .join('')
+                      .toUpperCase()
+                      .slice(0, 2)
+                  }}
+                </template>
 
+                <!-- Avatar actions -->
                 <q-btn
                   unelevated
                   text-color="accent"
-                  icon="more_horiz"
+                  icon="lens_blur"
                   round
-                  class="bg-tint"
+                  class="bg-grey-2 q-btn__push"
                   style="
                     border: 4px solid white;
                     position: absolute;
@@ -65,29 +82,12 @@
                         color="accent"
                         no-caps
                         align="left"
-                        class="q-menu__button"
+                        class="q-menu__button q-btn__push"
+                        icon="auto_awesome"
+                        label="Сгенерировать"
+                        v-close-popup
                         @click="handleSetRandomAvatar()"
-                      >
-                        <template #default>
-                          <svg
-                            width="24px"
-                            height="24px"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
-                              stroke="var(--q-accent)"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-
-                          <div class="q-pl-sm">Загрузить</div>
-                        </template>
-                      </q-btn>
+                      />
 
                       <template v-if="userCopy?.avatar">
                         <q-separator class="q-my-sm" />
@@ -100,7 +100,8 @@
                           color="grey"
                           no-caps
                           align="left"
-                          class="q-menu__button"
+                          class="q-menu__button q-btn__push"
+                          v-close-popup
                           @click="
                             userCopy.avatar = null;
                             handleUserUpdate();
@@ -190,7 +191,7 @@
                   !userCopy.position
                 "
                 no-caps
-                class="submit-btn full-width q-mt-lg"
+                class="q-btn__submit q-btn__push full-width q-mt-lg"
                 text-color="white"
                 type="submit"
               />
@@ -202,7 +203,7 @@
             <q-card
               flat
               v-ripple
-              class="bg-grey-2 q-hoverable push-btn"
+              class="bg-grey-2 q-hoverable q-btn__push"
               @click="handleLogout()"
             >
               <q-card-section class="row no-wrap">
@@ -246,7 +247,7 @@
               <!-- Add member to the team -->
               <q-card
                 flat
-                class="bg-grey-2 push-btn"
+                class="bg-grey-2 q-btn__push"
                 style="width: calc(33% - 16px)"
                 @click="!companiesState.companies.value?.length"
               >
@@ -357,7 +358,9 @@ const handleLogout = async () => {
 }
 
 ::v-deep(.q-tab__indicator) {
-  background: $accent;
+  //background: $accent;
+  background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
+  animation: gradient 1s ease-in-out infinite alternate;
   height: 100%;
   z-index: 1;
   border-radius: 12px;

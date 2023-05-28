@@ -9,7 +9,7 @@
         transition="scale"
         once
       >
-        <q-card flat v-ripple class="q-hoverable service_card">
+        <q-card flat v-ripple class="q-hoverable service_card q-btn__push">
           <q-card-section class="column">
             <div style="margin: 0 auto">
               <svg

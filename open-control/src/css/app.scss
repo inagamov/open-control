@@ -85,17 +85,17 @@ body {
 /*
  * push button
  */
-.push-btn {
+.q-btn__push {
   transition: 0.4s;
 }
-.push-btn:active {
+.q-btn__push:active {
   transform: scale(0.85);
 }
 
 /*
  * submit button
  */
-.submit-btn {
+.q-btn__submit {
   border-radius: 20px;
   background: linear-gradient(136.37deg, #f75d47 19.2%, #e13925 75.6%);
   animation: gradient 1s ease-in-out infinite alternate;

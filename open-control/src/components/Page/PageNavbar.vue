@@ -5,7 +5,12 @@
   >
     <div class="row justify-around q-pt-sm q-pb-md">
       <!-- Home -->
-      <q-btn flat no-caps :to="state.navItems.value.home.to" class="push-btn">
+      <q-btn
+        flat
+        no-caps
+        :to="state.navItems.value.home.to"
+        class="q-btn__push"
+      >
         <template #default>
           <div class="column">
             <svg
@@ -41,7 +46,12 @@
       </q-btn>
 
       <!-- Chats -->
-      <q-btn flat no-caps :to="state.navItems.value.chats.to" class="push-btn">
+      <q-btn
+        flat
+        no-caps
+        :to="state.navItems.value.chats.to"
+        class="q-btn__push"
+      >
         <template #default>
           <div class="column">
             <svg
@@ -81,7 +91,7 @@
       <q-btn
         round
         flat
-        class="search-btn push-btn"
+        class="search-btn q-btn__push"
         :to="router.currentRoute.value.path + ROUTE_PATHS.CHAT_BOT"
       >
         <template #default>
@@ -127,7 +137,7 @@
         flat
         no-caps
         :to="state.navItems.value.checkups.to"
-        class="push-btn"
+        class="q-btn__push"
       >
         <template #default>
           <div class="column">
@@ -170,7 +180,7 @@
         flat
         no-caps
         :to="state.navItems.value.profile.to"
-        class="push-btn"
+        class="q-btn__push"
       >
         <template #default>
           <div class="column">
